@@ -716,5 +716,66 @@
         console.error('Erro ao enviar avaliação:', error);
         showFeedback('Erro ao enviar avaliação. Tente novamente.', 'error');
       }
+        <br>
+                          <br>
+      <style>
+  .retangulo-azul {
+    background-color: #007BFF;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 300px;
+    margin: 50px auto;
+  }
+
+  .pix-symbol {
+    font-size: 48px;
+    cursor: pointer;
+    color: #0c9bb6;
+    margin-top: 10px;
+    transition: transform 0.2s;
+  }
+
+  .pix-symbol:hover {
+    transform: scale(1.1);
+  }
+
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 8px;
+    box-shadow: 0 0 20px #000;
+  }
+
+  .modal:target {
+    display: flex;
+  }
+</style>
+
+<div class="retangulo-azul">
+  <h3>Chave Pix:</h3>
+  <p>❖ 21eff4f2-9fac-4282-b44a-5ce9a20791ff</p>
+  <a href="#qrcode-modal">
+    <div class="pix-symbol">Pix</div>
+  </a>
+</div>
+
+<div id="qrcode-modal" class="modal" onclick="this.style.display='none'">
+  <img src="qrcode_pix.png" alt="QR Code Pix">
+</div>
         </body>
                           </html>
