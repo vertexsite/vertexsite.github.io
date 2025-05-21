@@ -253,23 +253,113 @@ footer {
     <source src="https://www.dropbox.com/scl/fi/xikhgmtqvyluqovrw61aj/relaxing-ambient-music-337579.mp3?rlkey=qe25wu91al0bdpmkq4k4pj8we&raw=1" type="audio/mpeg">  
     Seu navegador não suporta áudio.  
   </audio>    <footer>  
-      <!-- Firebase App (essencial) -->
+      <!-- Formulário de Avaliação -->
+<form id="form-avaliacao" style="max-width:400px;margin:auto;">
+  <input type="text" id="nome" placeholder="Seu nome" required style="width:100%;margin-bottom:8px;padding:8px;" />
+  <input type="number" id="nota" min="1" max="5" placeholder="Nota (1 a 5)" required style="width:100%;margin-bottom:8px;padding:8px;" />
+  <textarea id="comentario" placeholder="Seu comentário" required style="width:100%;margin-bottom:8px;padding:8px;"></textarea>
+  <button type="submit" style="width:100%;padding:10px;background:#f00;color:#fff;border:none;cursor:pointer;">Enviar Avaliação</button>
+</form>
+
+<!-- Lista de Avaliações -->
+<div id="lista-avaliacoes" style="max-width:400px;margin:20px auto 0 auto; font-family: Arial, sans-serif;">
+  <!-- Avaliações aparecerão aqui -->
+</div>
+
+<!-- Firebase SDKs -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-<!-- Firestore -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
-<!-- Firebase Auth (pra autenticação, se quiser controle) -->
 <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
-    <script>
-  const form = document.getElementById('form-avaliacao');
-  form.addEventListener('submit', e => {
-    e.preventDefault();
-    const nome = document.getElementById('nome').value;
-    const nota = Number(document.getElementById('nota').value);
-    const comentario = document.getElementById('comentario').value;
-    enviarAvaliacao(nome, nota, comentario);
-    form.reset();
+
+<!-- Script principal -->
+<script>
+  // Sua configuração Firebase — substitua pelos seus dados do console Firebase
+  const firebaseConfig = {
+    apiKey: "SUA_API_KEY",
+    authDomain: "SEU_PROJETO.firebaseapp.com",
+    projectId: "SEU_PROJETO",
+    storageBucket: "SEU_PROJETO.appspot.com",
+    messagingSenderId: "SEU_SENDER_ID",
+    appId: "SEU_APP_ID"
+  };
+
+  // Inicializa Firebase
+  firebase.initializeApp(firebaseConfig);
+  const db = firebase.firestore();
+
+  // Envia avaliação para o Firestore
+  function enviarAvaliacao(nome, nota, comentario) {
+    db.collection("avaliacoes").add({
+      nome: nome,
+      nota: nota,
+      comentario: comentario,
+      criadoEm: firebase.firestore.FieldValue.serverTimestamp()
+    })
+    .then(() => {
+      alert("Avaliação enviada com sucesso!");
+      carregarAvaliacoes();
+    })
+    .catch(error => {
+      alert("Erro ao enviar avaliação: " + error.message);
+    });
+  }
+
+  // Carrega avaliações e mostra na tela
+  function carregarAvaliacoes() {
+    const lista = document.getElementById('lista-avaliacoes');
+    lista.innerHTML = "Carregando avaliações...";
+
+    db.collection("avaliacoes")
+      .orderBy("criadoEm", "desc")
+      .limit(10)
+      .get()
+      .then(snapshot => {
+        lista.innerHTML = "";
+        if (snapshot.empty) {
+          lista.innerHTML = "Nenhuma avaliação ainda.";
+          return;
+        }
+
+        snapshot.forEach(doc => {
+          const data = doc.data();
+          const item = document.createElement('div');
+          item.style.border = "1px solid #ccc";
+          item.style.padding = "10px";
+          item.style.marginBottom = "8px";
+          item.style.borderRadius = "5px";
+          item.innerHTML = `
+            <strong>${data.nome}</strong> - Nota: ${data.nota} <br/>
+            <p>${data.comentario}</p>
+          `;
+          lista.appendChild(item);
+        });
+      })
+      .catch(error => {
+        lista.innerHTML = "Erro ao carregar avaliações: " + error.message;
+      });
+  }
+
+  // Quando a página carregar, liga o formulário e carrega avaliações
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('form-avaliacao');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const nome = document.getElementById('nome').value.trim();
+      const nota = Number(document.getElementById('nota').value);
+      const comentario = document.getElementById('comentario').value.trim();
+
+      if (!nome || !comentario || nota < 1 || nota > 5) {
+        alert("Preencha tudo corretamente, nota entre 1 e 5.");
+        return;
+      }
+
+      enviarAvaliacao(nome, nota, comentario);
+      form.reset();
+    });
+
+    carregarAvaliacoes();
   });
-    </script>
+</script>
     &copy; 2025 Vertex. Todos os direitos reservados.  
   </footer>    <script>  
     function toggleMenu() {  
