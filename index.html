@@ -5958,25 +5958,6 @@ nnerHTML = '<div class="review">Nenhuma avaliação ainda. Seja o primeiro a ava
       reviewsContainer.innerHTML = '';
       
       if(snapshot.empty) {
-        reviewsContainer.innerHTML = '<div class="review">Nenhuma avaliação ainda. Seja o primeiro a avaliar!</div>';
-        return;
-      }
-      
-      snapshot.forEach(doc => {
-        const data = doc.data();
-        const stars = '★'.repeat(data.rating) + '☆'.repeat(5 - data.rating);
-        
-        const reviewEl = document.createElement('div');
-        reviewEl.classList.add('review');
-        reviewEl.innerHTML = `
-          <div class="name">${data.name.toUpperCase()}</div>
-          <div class="comment">${data.comment}</div>
-          <div class="rating">${stars}</div>
-        `;
-        
-        reviewsContainer.appendChild(reviewEl);
-      });
-    });
   </script>
 
   <!-- Google Analytics com consentimento (exemplo básico) -->
