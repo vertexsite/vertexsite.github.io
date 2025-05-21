@@ -252,127 +252,222 @@ footer {
     <source src="https://www.dropbox.com/scl/fi/xikhgmtqvyluqovrw61aj/relaxing-ambient-music-337579.mp3?rlkey=qe25wu91al0bdpmkq4k4pj8we&raw=1" type="audio/mpeg">  
     Seu navegador não suporta áudio.  
   </audio>    <footer>  
-      <!-- Formulário de Avaliação -->
-<form id="form-avaliacao" style="max-width:400px;margin:auto;">
-  <input type="text" id="nome" placeholder="Seu nome" required style="width:100%;margin-bottom:8px;padding:8px;" />
-  <input type="number" id="nota" min="1" max="5" placeholder="Nota (1 a 5)" required style="width:100%;margin-bottom:8px;padding:8px;" />
-  <textarea id="comentario" placeholder="Seu comentário" required style="width:100%;margin-bottom:8px;padding:8px;"></textarea>
-  <button type="submit" style="width:100%;padding:10px;background:#f00;color:#fff;border:none;cursor:pointer;">Enviar Avaliação</button>
-</form>
+ <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Avaliações Vertex Retrô</title>
+  <style>
+    /* Fonte pixelada, cores neon e fundo escuro estilo 80/90 */
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-<!-- Lista de Avaliações -->
-<div id="lista-avaliacoes" style="max-width:400px;margin:20px auto 0 auto; font-family: Arial, sans-serif;">
-  <!-- Avaliações aparecerão aqui -->
-</div>
+    body {
+      background: #121212;
+      color: #39ff14; /* verde neon */
+      font-family: 'Press Start 2P', cursive;
+      margin: 0;
+      padding: 20px;
+    }
 
-<!-- Firebase SDKs -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+    h1 {
+      text-align: center;
+      color: #ff00ff; /* rosa neon */
+      text-shadow: 0 0 10px #ff00ff;
+      margin-bottom: 30px;
+    }
 
-<!-- Script principal -->
-<script>
-  // Sua configuração Firebase — substitua pelos seus dados do console Firebase
-  // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+    form {
+      max-width: 500px;
+      margin: 0 auto 40px;
+      background: #1a1a1a;
+      padding: 20px;
+      border: 2px solid #ff00ff;
+      box-shadow: 0 0 20px #ff00ff;
+      border-radius: 8px;
+    }
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-  apiKey: "AIzaSyA6-BkFg93DKhFn7bc46gkXgZyM1qBz5KE",
-  authDomain: "vertex-41f04.firebaseapp.com",
-  projectId: "vertex-41f04",
-  storageBucket: "vertex-41f04.firebasestorage.app",
-  messagingSenderId: "112596070358",
-  appId: "1:112596070358:web:48fc171c439960f7f77e77",
-  measurementId: "G-5KE3BPZN5M"
-};
+    label {
+      display: block;
+      margin-bottom: 8px;
+      color: #00ffff; /* ciano neon */
+      font-size: 10px;
+      letter-spacing: 1.5px;
+    }
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
-  };
+    input[type="text"],
+    textarea,
+    select {
+      width: 100%;
+      background: #121212;
+      border: 2px solid #39ff14;
+      color: #39ff14;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 10px;
+      padding: 8px;
+      margin-bottom: 20px;
+      border-radius: 4px;
+      outline: none;
+      box-shadow: 0 0 5px #39ff14 inset;
+      resize: none;
+    }
 
-  // Inicializa Firebase
-  firebase.initializeApp(firebaseConfig);
-  const db = firebase.firestore();
+    input[type="submit"] {
+      background: #ff00ff;
+      color: #121212;
+      border: none;
+      padding: 12px 20px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 12px;
+      letter-spacing: 2px;
+      border-radius: 6px;
+      transition: background 0.3s ease;
+    }
 
-  // Envia avaliação para o Firestore
-  function enviarAvaliacao(nome, nota, comentario) {
-    db.collection("avaliacoes").add({
-      nome: nome,
-      nota: nota,
-      comentario: comentario,
-      criadoEm: firebase.firestore.FieldValue.serverTimestamp()
-    })
-    .then(() => {
-      alert("Avaliação enviada com sucesso!");
-      carregarAvaliacoes();
-    })
-    .catch(error => {
-      alert("Erro ao enviar avaliação: " + error.message);
-    });
-  }
+    input[type="submit"]:hover {
+      background: #ff66ff;
+    }
 
-  // Carrega avaliações e mostra na tela
-  function carregarAvaliacoes() {
-    const lista = document.getElementById('lista-avaliacoes');
-    lista.innerHTML = "Carregando avaliações...";
+    .reviews {
+      max-width: 600px;
+      margin: 0 auto;
+      border: 2px solid #00ffff;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 0 20px #00ffff;
+      background: #1a1a1a;
+    }
 
-    db.collection("avaliacoes")
-      .orderBy("criadoEm", "desc")
-      .limit(10)
-      .get()
-      .then(snapshot => {
-        lista.innerHTML = "";
-        if (snapshot.empty) {
-          lista.innerHTML = "Nenhuma avaliação ainda.";
-          return;
-        }
+    .review {
+      border-bottom: 1px solid #39ff14;
+      padding-bottom: 12px;
+      margin-bottom: 12px;
+    }
 
-        snapshot.forEach(doc => {
-          const data = doc.data();
-          const item = document.createElement('div');
-          item.style.border = "1px solid #ccc";
-          item.style.padding = "10px";
-          item.style.marginBottom = "8px";
-          item.style.borderRadius = "5px";
-          item.innerHTML = `
-            <strong>${data.nome}</strong> - Nota: ${data.nota} <br/>
-            <p>${data.comentario}</p>
-          `;
-          lista.appendChild(item);
-        });
-      })
-      .catch(error => {
-        lista.innerHTML = "Erro ao carregar avaliações: " + error.message;
-      });
-  }
+    .review:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
 
-  // Quando a página carregar, liga o formulário e carrega avaliações
-  document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('form-avaliacao');
-    form.addEventListener('submit', e => {
+    .review .name {
+      color: #ff00ff;
+      font-size: 12px;
+      margin-bottom: 4px;
+    }
+
+    .review .comment {
+      font-size: 10px;
+      margin-bottom: 4px;
+    }
+
+    .review .rating {
+      font-size: 12px;
+      color: #39ff14;
+      letter-spacing: 1px;
+    }
+  </style>
+
+  <h1>Avaliações Vertex</h1>
+
+  <form id="review-form">
+    <label for="name">NOME</label>
+    <input type="text" id="name" required placeholder="Seu nome" />
+
+    <label for="comment">COMENTÁRIO</label>
+    <textarea id="comment" rows="3" required placeholder="Deixe seu comentário"></textarea>
+
+    <label for="rating">NOTA</label>
+    <select id="rating" required>
+      <option value="" disabled selected>Selecione a nota</option>
+      <option value="1">1 - Péssimo</option>
+      <option value="2">2 - Ruim</option>
+      <option value="3">3 - Médio</option>
+      <option value="4">4 - Bom</option>
+      <option value="5">5 - Excelente</option>
+    </select>
+
+    <input type="submit" value="ENVIAR AVALIAÇÃO" />
+  </form>
+
+  <div class="reviews" id="reviews-container">
+    <!-- Avaliações aparecerão aqui -->
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
+
+    // Config Firebase - sua config aqui
+    const firebaseConfig = {
+      apiKey: "AIzaSyA6-BkFg93DKhFn7bc46gkXgZyM1qBz5KE",
+      authDomain: "vertex-41f04.firebaseapp.com",
+      projectId: "vertex-41f04",
+      storageBucket: "vertex-41f04.firebasestorage.app",
+      messagingSenderId: "112596070358",
+      appId: "1:112596070358:web:48fc171c439960f7f77e77",
+      measurementId: "G-5KE3BPZN5M"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const form = document.getElementById('review-form');
+    const reviewsContainer = document.getElementById('reviews-container');
+
+    // Enviar avaliação para Firestore
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const nome = document.getElementById('nome').value.trim();
-      const nota = Number(document.getElementById('nota').value);
-      const comentario = document.getElementById('comentario').value.trim();
 
-      if (!nome || !comentario || nota < 1 || nota > 5) {
-        alert("Preencha tudo corretamente, nota entre 1 e 5.");
+      const name = form.name.value.trim();
+      const comment = form.comment.value.trim();
+      const rating = form.rating.value;
+
+      if(!name || !comment || !rating) {
+        alert('Preencha todos os campos.');
         return;
       }
 
-      enviarAvaliacao(nome, nota, comentario);
-      form.reset();
+      try {
+        await addDoc(collection(db, 'avaliacoes'), {
+          name,
+          comment,
+          rating: Number(rating),
+          createdAt: serverTimestamp()
+        });
+        form.reset();
+      } catch (error) {
+        alert('Erro ao enviar avaliação: ' + error.message);
+      }
     });
 
-    carregarAvaliacoes();
-  });
-</script>
+    // Mostrar avaliações em tempo real
+    const q = query(collection(db, 'avaliacoes'), orderBy('createdAt', 'desc'));
+    onSnapshot(q, (snapshot) => {
+      reviewsContainer.innerHTML = '';
+      snapshot.forEach(doc => {
+        const data = doc.data();
+
+        // Montar estrelas simples
+        let stars = '';
+        for(let i = 0; i < data.rating; i++) {
+          stars += '★';
+        }
+        for(let i = data.rating; i < 5; i++) {
+          stars += '☆';
+        }
+
+        const reviewEl = document.createElement('div');
+        reviewEl.classList.add('review');
+        reviewEl.innerHTML = `
+          <div class="name">${data.name.toUpperCase()}</div>
+          <div class="comment">${data.comment}</div>
+          <div class="rating">${stars}</div>
+        `;
+
+        reviewsContainer.appendChild(reviewEl);
+      });
+    });
+  </script>
     &copy; 2025 Vertex. Todos os direitos reservados.  
   </footer>    <script>  
     function toggleMenu() {  
