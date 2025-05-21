@@ -718,66 +718,116 @@
       }
         </script>
 
-  <!-- Bloco Pix -->
-  <style>
-    .retangulo-azul {
-      background-color: #007BFF;
-      color: white;
-      padding: 20px;
-      border-radius: 10px;
-      text-align: center;
-      width: 300px;
-      margin: 50px auto;
+  <!-- Bloco Pix estilo anos 80/90 -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+  body {
+    background-color: #111;
+    font-family: 'Press Start 2P', cursive;
+    color: #fff;
+  }
+
+  .retangulo-azul {
+    background: linear-gradient(135deg, #007BFF, #00C6FF);
+    color: white;
+    padding: 25px;
+    border-radius: 15px;
+    text-align: center;
+    width: 320px;
+    margin: 80px auto;
+    box-shadow: 0 0 20px #00f, 0 0 40px #0ff;
+    border: 2px dashed #fff;
+  }
+
+  .retangulo-azul h3 {
+    font-size: 14px;
+    margin-bottom: 10px;
+  }
+
+  .retangulo-azul p {
+    font-size: 12px;
+    word-break: break-all;
+    background: #000;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #0ff;
+  }
+
+  .pix-symbol {
+    font-size: 24px;
+    background: #0c9bb6;
+    padding: 10px 20px;
+    border-radius: 10px;
+    display: inline-block;
+    color: #fff;
+    box-shadow: 0 0 10px #0ff;
+    transition: transform 0.2s, box-shadow 0.3s;
+    cursor: pointer;
+  }
+
+  .pix-symbol:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 20px #0ff;
+  }
+
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 50, 0.9);
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modal img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 12px;
+    box-shadow: 0 0 25px #00f, 0 0 50px #0ff;
+  }
+
+  .modal.show {
+    display: flex;
+  }
+</style>
+
+<div class="retangulo-azul" role="region" aria-label="Informações de pagamento Pix">
+  <h3>Chave Pix:</h3>
+  <p>❖ 21eff4f2-9fac-4282-b44a-5ce9a20791ff</p>
+  <div class="pix-symbol" onclick="openModal()">Ver QR Code</div>
+</div>
+
+<div id="qrcode-modal" class="modal" onclick="closeModal(event)" aria-hidden="true">
+  <img src="https://i.postimg.cc/NjYjwssT/qrcode-pix.png" alt="QR Code Pix para pagamento">
+</div>
+
+<script>
+  const modal = document.getElementById('qrcode-modal');
+
+  function openModal() {
+    modal.classList.add('show');
+    modal.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeModal(event) {
+    if (event.target === modal) {
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden', 'true');
     }
+  }
 
-    .pix-symbol {
-      font-size: 48px;
-      cursor: pointer;
-      color: #0c9bb6;
-      margin-top: 10px;
-      transition: transform 0.2s;
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape' && modal.classList.contains('show')) {
+      modal.classList.remove('show');
+      modal.setAttribute('aria-hidden', 'true');
     }
-
-    .pix-symbol:hover {
-      transform: scale(1.1);
-    }
-
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 999;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.8);
-      justify-content: center;
-      align-items: center;
-    }
-
-    .modal img {
-      max-width: 90%;
-      max-height: 90%;
-      border-radius: 8px;
-      box-shadow: 0 0 20px #000;
-    }
-
-    .modal:target {
-      display: flex;
-    }
-  </style>
-
-  <div class="retangulo-azul">
-    <h3>Chave Pix:</h3>
-    <p>❖ 21eff4f2-9fac-4282-b44a-5ce9a20791ff</p>
-    <a href="#qrcode-modal">
-      <div class="pix-symbol">Pix</div>
-    </a>
-  </div>
-
-  <div id="qrcode-modal" class="modal" onclick="this.style.display='none'">
-    <img src="https://i.postimg.cc/NjYjwssT/qrcode-pix.png" alt="QR Code Pix">
-  </div>
-
+  });
+</script>
 </body>
 </html>
