@@ -717,8 +717,29 @@
         showFeedback('Erro ao enviar avaliação. Tente novamente.', 'error');
       }
         </script>
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 50, 0.9);
+    justify-content: center;
+    align-items: center;
+  }
 
-        <!-- Bloco Pix estilo anos 80/90 (corrigido) -->
+  .modal img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 12px;
+    box-shadow: 0 0 25px #00f, 0 0 50px #0ff;
+  }
+
+  .modal.show {
+    display: flex;
+  }
+</style>
+
+<!-- Bloco Pix estilo anos 80/90 -->
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
@@ -780,47 +801,42 @@
     align-items: center;
   }
 
+  .modal.show {
+    display: flex;
+  }
+
   .modal img {
     max-width: 90%;
     max-height: 90%;
     border-radius: 12px;
     box-shadow: 0 0 25px #00f, 0 0 50px #0ff;
   }
-
-  .modal.show {
-    display: flex;
-  }
 </style>
 
-<div class="bloco-pix" role="region" aria-label="Informações de pagamento Pix">
+<div class="bloco-pix">
   <h3>Chave Pix:</h3>
   <p>❖ 21eff4f2-9fac-4282-b44a-5ce9a20791ff</p>
   <div class="pix-symbol" onclick="openModal()">Ver QR Code</div>
 </div>
 
-<div id="qrcode-modal" class="modal" onclick="closeModal(event)" aria-hidden="true">
-  <img src="https://i.postimg.cc/NjYjwssT/qrcode-pix.png" alt="QR Code Pix para pagamento">
+<div id="qrcode-modal" class="modal" onclick="closeModal(event)">
+  <img src="https://i.postimg.cc/NjYjwssT/qrcode-pix.png" alt="QR Code Pix">
 </div>
 
 <script>
-  const modal = document.getElementById('qrcode-modal');
-
   function openModal() {
-    modal.classList.add('show');
-    modal.setAttribute('aria-hidden', 'false');
+    document.getElementById('qrcode-modal').classList.add('show');
   }
 
-  function closeModal(event) {
-    if (event.target === modal) {
-      modal.classList.remove('show');
-      modal.setAttribute('aria-hidden', 'true');
+  function closeModal(e) {
+    if (e.target.id === 'qrcode-modal') {
+      e.target.classList.remove('show');
     }
   }
 
   document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape' && modal.classList.contains('show')) {
-      modal.classList.remove('show');
-      modal.setAttribute('aria-hidden', 'true');
+    if (e.key === 'Escape') {
+      document.getElementById('qrcode-modal').classList.remove('show');
     }
   });
 </script>
