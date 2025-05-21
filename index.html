@@ -3,12 +3,6 @@
   <meta charset="UTF-8" />  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
   <title>Vertex</title>  
-  <!-- Firebase App (essencial) -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
-<!-- Firestore -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
-<!-- Firebase Auth (pra autenticação, se quiser controle) -->
-<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
   <!-- Google Analytics -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-X44J96MZ33"></script>
 <script>
@@ -259,6 +253,23 @@ footer {
     <source src="https://www.dropbox.com/scl/fi/xikhgmtqvyluqovrw61aj/relaxing-ambient-music-337579.mp3?rlkey=qe25wu91al0bdpmkq4k4pj8we&raw=1" type="audio/mpeg">  
     Seu navegador não suporta áudio.  
   </audio>    <footer>  
+      <!-- Firebase App (essencial) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js"></script>
+<!-- Firestore -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore.js"></script>
+<!-- Firebase Auth (pra autenticação, se quiser controle) -->
+<script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth.js"></script>
+    <script>
+  const form = document.getElementById('form-avaliacao');
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const nome = document.getElementById('nome').value;
+    const nota = Number(document.getElementById('nota').value);
+    const comentario = document.getElementById('comentario').value;
+    enviarAvaliacao(nome, nota, comentario);
+    form.reset();
+  });
+    </script>
     &copy; 2025 Vertex. Todos os direitos reservados.  
   </footer>    <script>  
     function toggleMenu() {  
