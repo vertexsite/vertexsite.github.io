@@ -1,5 +1,4 @@
-<!DOCTYPE html>  <html lang="pt-br">  
-<head>  
+<!DOCTYPE html>  <html lang="pt-br">  <head>  
   <meta charset="UTF-8" />  
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
   <title>Vertex</title>  
@@ -8,11 +7,8 @@
 <script>
   window.dataLayer = window.dataLayer || [];
   function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+  gtag('js', new Date());gtag('config', 'G-X44J96MZ33'); </script> <meta name="description" content="Vertex é uma empresa de tecnologia e inovação especializada em jogos, modelagem 3D, inteligência artificial e muito mais. Conheça nossos projetos incríveis!">
 
-  gtag('config', 'G-X44J96MZ33');
-</script>
-  <meta name="description" content="Vertex é uma empresa de tecnologia e inovação especializada em jogos, modelagem 3D, inteligência artificial e muito mais. Conheça nossos projetos incríveis!">
   <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Nosifer&display=swap" rel="stylesheet">
   <meta name="keywords" content="Vertex, empresa de tecnologia, inovação, criação de jogos, desenvolvimento de jogos, modelagem 3D, edição de vídeo, edição de imagem, inteligência artificial, IA, projetos inovadores, programação, design gráfico, montagem de PCs, software, hardware, games, jogos indie, tecnologia brasileira, desenvolvimento de software, realidade aumentada, realidade virtual, gaming, programadores, criadores de jogos, software personalizado, desenvolvimento web, empresa de TI, startup de tecnologia" />
   <style>  
@@ -30,147 +26,145 @@
   background-color: #000;  
   position: relative;  
   z-index: 100;  
-}  
+}  .menu-button {
+font-size: 30px;
+cursor: pointer;
+color: white;
+user-select: none;
+}
 
-.menu-button {  
-  font-size: 30px;  
-  cursor: pointer;  
-  color: white;  
-  user-select: none;  
-}  
+.menu-button:hover {
+color: gold;
+}
 
-.menu-button:hover {  
-  color: gold;  
-}  
+.menu {
+position: absolute;
+top: 60px;
+left: 30px;
+background-color: #222;
+border: 1px solid gold;
+padding: 10px;
+display: none;
+z-index: 1000;
+}
 
-.menu {  
-  position: absolute;  
-  top: 60px;  
-  left: 30px;  
-  background-color: #222;  
-  border: 1px solid gold;  
-  padding: 10px;  
-  display: none;  
-  z-index: 1000;  
-}  
+.menu a {
+display: block;
+padding: 8px 0;
+color: white;
+text-decoration: none;
+}
 
-.menu a {  
-  display: block;  
-  padding: 8px 0;  
-  color: white;  
-  text-decoration: none;  
-}  
+.menu a:hover {
+color: gold;
+}
 
-.menu a:hover {  
-  color: gold;  
-}  
+.title {
+font-size: 32px;
+font-weight: bold;
+color: gold;
+font-family: 'Cinzel Decorative', cursive;
+text-shadow: 1px 1px 10px gold;
+}
 
-.title {  
-  font-size: 32px;  
-  font-weight: bold;  
-  color: gold;  
-  font-family: 'Cinzel Decorative', cursive;  
-  text-shadow: 1px 1px 10px gold;  
-}  
+.gif-container {
+position: relative;
+width: 100%;
+overflow: hidden;
+}
 
-.gif-container {  
-  position: relative;  
-  width: 100%;  
-  overflow: hidden;  
-}  
+.gif-container img {
+width: 100%;
+max-height: 300px;
+object-fit: cover;
+display: block;
+}
 
-.gif-container img {  
-  width: 100%;  
-  max-height: 300px;  
-  object-fit: cover;  
-  display: block;  
-}  
+.grid-effect {
+height: 50px;
+background: repeating-linear-gradient(
+45deg,
+rgba(255, 0, 255, 0.3),
+rgba(255, 0, 255, 0.3) 10px,
+transparent 10px,
+transparent 20px
+);
+animation: moveGrid 4s linear infinite;
+}
 
-.grid-effect {  
-  height: 50px;  
-  background: repeating-linear-gradient(  
-    45deg,  
-    rgba(255, 0, 255, 0.3),  
-    rgba(255, 0, 255, 0.3) 10px,  
-    transparent 10px,  
-    transparent 20px  
-  );  
-  animation: moveGrid 4s linear infinite;  
-}  
+@keyframes moveGrid {
+from { background-position: 0 0; }
+to { background-position: 100px 100px; }
+}
 
-@keyframes moveGrid {  
-  from { background-position: 0 0; }  
-  to { background-position: 100px 100px; }  
-}  
+section {
+padding: 40px 20px;
+}
 
-section {  
-  padding: 40px 20px;  
-}  
+h2 {
+color: gold;
+margin-bottom: 15px;
+}
 
-h2 {  
-  color: gold;  
-  margin-bottom: 15px;  
-}  
+.project {
+border: 2px solid gold;
+padding: 15px;
+background: #222;
+margin-top: 10px;
+text-align: center;
+display: flex;
+flex-direction: column;
+align-items: center;
+}
 
-.project {  
-  border: 2px solid gold;  
-  padding: 15px;  
-  background: #222;  
-  margin-top: 10px;  
-  text-align: center;  
-  display: flex;  
-  flex-direction: column;  
-  align-items: center;  
-}  
+.project img {
+width: 200px;
+height: 300px;
+object-fit: cover;
+border-radius: 8px;
+box-shadow: 0 0 15px gold;
+margin: 0 auto;
+}
 
-.project img {  
-  width: 200px;  
-  height: 300px;  
-  object-fit: cover;  
-  border-radius: 8px;  
-  box-shadow: 0 0 15px gold;  
-  margin: 0 auto;  
-}  
+.project strong {
+margin-top: 2em;
+font-family: 'Nosifer', cursive;
+font-size: 2.2rem;
+color: gold;
+text-shadow: 2px 2px 5px #900;
+letter-spacing: 3px;
+}
 
-.project strong {  
-  margin-top: 2em;  
-  font-family: 'Nosifer', cursive;  
-  font-size: 2.2rem;  
-  color: gold;  
-  text-shadow: 2px 2px 5px #900;  
-  letter-spacing: 3px;  
-}  
+.member {
+cursor: pointer;
+margin-bottom: 10px;
+background-color: #1a1a1a;
+padding: 10px;
+border-left: 4px solid gold;
+}
 
-.member {  
-  cursor: pointer;  
-  margin-bottom: 10px;  
-  background-color: #1a1a1a;  
-  padding: 10px;  
-  border-left: 4px solid gold;  
-}  
+.details {
+display: none;
+color: #ccc;
+font-size: 14px;
+margin-top: 5px;
+}
 
-.details {  
-  display: none;  
-  color: #ccc;  
-  font-size: 14px;  
-  margin-top: 5px;  
-}  
+footer {
+text-align: center;
+padding: 20px;
+background: #000;
+color: #888;
+}
 
-footer {  
-  text-align: center;  
-  padding: 20px;  
-  background: #000;  
-  color: #888;  
-}  
+.cassette-container {
+text-align: center;
+margin-top: 50px;
+}
 
-.cassette-container {  
-  text-align: center;  
-  margin-top: 50px;  
-}  
-
-.cassette-container img {  
-  width: 150px;  
-  cursor: pointer;  
+.cassette-container img {
+width: 150px;
+cursor: pointer;
 }
 
   </style>  
@@ -196,15 +190,9 @@ footer {
   <div class="project">  <!-- Imagem clicável -->  
 <a href="horror-cult.html">  
   <img src="https://i.imgur.com/EFKG8XO.jpeg" alt="Poster do jogo Horror Cult" style="width: 100%; max-width: 600px; border-radius: 10px; cursor: pointer;" />  
-</a>  
-
-<h2 style="font-family: 'Verdana', cursive; font-size: 36px; margin-bottom: 20px; color: gold;">Horror Cult</h2>  
-  
-<div style="margin-top: 10px; font-size: 15px; line-height: 1.4; color: white;">  
+</a>  <h2 style="font-family: 'Verdana', cursive; font-size: 36px; margin-bottom: 20px; color: gold;">Horror Cult</h2>  <div style="margin-top: 10px; font-size: 15px; line-height: 1.4; color: white;">  
   Horror Cult é um jogo de terror que se passa nos anos 80, no sul dos EUA. O jogo conta sobre os horrores do racismo. Nosso jogo contará com uma IA inovadora e mecânicas inteligentes.<br><br>Jogo em produção!  
-</div>
-
-  </div>  
+</div>  </div>  
 </section>    <section id="equipe">  
     <h2>Equipe</h2>  
     <div class="member" onclick="toggleDetails(event)">  
@@ -252,121 +240,121 @@ footer {
     <source src="https://www.dropbox.com/scl/fi/xikhgmtqvyluqovrw61aj/relaxing-ambient-music-337579.mp3?rlkey=qe25wu91al0bdpmkq4k4pj8we&raw=1" type="audio/mpeg">  
     Seu navegador não suporta áudio.  
   </audio>    <footer>  
- <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Avaliações Vertex Retrô</title>
-  <style>
-    /* Fonte pixelada, cores neon e fundo escuro estilo 80/90 */
-    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+  </footer>
+      <!-- Estilos da seção de avaliações -->
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
-    body {
-      background: #121212;
-      color: #39ff14; /* verde neon */
-      font-family: 'Press Start 2P', cursive;
-      margin: 0;
-      padding: 20px;
-    }
+  .retro-section {
+    background: #121212;
+    color: #39ff14;
+    font-family: 'Press Start 2P', cursive;
+    padding: 40px 20px;
+  }
 
-    h1 {
-      text-align: center;
-      color: #ff00ff; /* rosa neon */
-      text-shadow: 0 0 10px #ff00ff;
-      margin-bottom: 30px;
-    }
+  .retro-section h2 {
+    text-align: center;
+    color: #ff00ff;
+    text-shadow: 0 0 10px #ff00ff;
+    margin-bottom: 30px;
+    font-size: 18px;
+  }
 
-    form {
-      max-width: 500px;
-      margin: 0 auto 40px;
-      background: #1a1a1a;
-      padding: 20px;
-      border: 2px solid #ff00ff;
-      box-shadow: 0 0 20px #ff00ff;
-      border-radius: 8px;
-    }
+  .retro-section form {
+    max-width: 500px;
+    margin: 0 auto 40px;
+    background: #1a1a1a;
+    padding: 20px;
+    border: 2px solid #ff00ff;
+    box-shadow: 0 0 20px #ff00ff;
+    border-radius: 8px;
+  }
 
-    label {
-      display: block;
-      margin-bottom: 8px;
-      color: #00ffff; /* ciano neon */
-      font-size: 10px;
-      letter-spacing: 1.5px;
-    }
+  .retro-section label {
+    display: block;
+    margin-bottom: 8px;
+    color: #00ffff;
+    font-size: 10px;
+    letter-spacing: 1.5px;
+  }
 
-    input[type="text"],
-    textarea,
-    select {
-      width: 100%;
-      background: #121212;
-      border: 2px solid #39ff14;
-      color: #39ff14;
-      font-family: 'Press Start 2P', cursive;
-      font-size: 10px;
-      padding: 8px;
-      margin-bottom: 20px;
-      border-radius: 4px;
-      outline: none;
-      box-shadow: 0 0 5px #39ff14 inset;
-      resize: none;
-    }
+  .retro-section input[type="text"],
+  .retro-section textarea,
+  .retro-section select {
+    width: 100%;
+    background: #121212;
+    border: 2px solid #39ff14;
+    color: #39ff14;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 10px;
+    padding: 8px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    outline: none;
+    box-shadow: 0 0 5px #39ff14 inset;
+    resize: none;
+  }
 
-    input[type="submit"] {
-      background: #ff00ff;
-      color: #121212;
-      border: none;
-      padding: 12px 20px;
-      cursor: pointer;
-      font-weight: bold;
-      font-size: 12px;
-      letter-spacing: 2px;
-      border-radius: 6px;
-      transition: background 0.3s ease;
-    }
+  .retro-section input[type="submit"] {
+    background: #ff00ff;
+    color: #121212;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 12px;
+    letter-spacing: 2px;
+    border-radius: 6px;
+    transition: background 0.3s ease;
+  }
 
-    input[type="submit"]:hover {
-      background: #ff66ff;
-    }
+  .retro-section input[type="submit"]:hover {
+    background: #ff66ff;
+  }
 
-    .reviews {
-      max-width: 600px;
-      margin: 0 auto;
-      border: 2px solid #00ffff;
-      border-radius: 8px;
-      padding: 20px;
-      box-shadow: 0 0 20px #00ffff;
-      background: #1a1a1a;
-    }
+  .retro-section .reviews {
+    max-width: 600px;
+    margin: 0 auto;
+    border: 2px solid #00ffff;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 0 20px #00ffff;
+    background: #1a1a1a;
+  }
 
-    .review {
-      border-bottom: 1px solid #39ff14;
-      padding-bottom: 12px;
-      margin-bottom: 12px;
-    }
+  .retro-section .review {
+    border-bottom: 1px solid #39ff14;
+    padding-bottom: 12px;
+    margin-bottom: 12px;
+  }
 
-    .review:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
-    }
+  .retro-section .review:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
 
-    .review .name {
-      color: #ff00ff;
-      font-size: 12px;
-      margin-bottom: 4px;
-    }
+  .retro-section .review .name {
+    color: #ff00ff;
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
 
-    .review .comment {
-      font-size: 10px;
-      margin-bottom: 4px;
-    }
+  .retro-section .review .comment {
+    font-size: 10px;
+    margin-bottom: 4px;
+  }
 
-    .review .rating {
-      font-size: 12px;
-      color: #39ff14;
-      letter-spacing: 1px;
-    }
-  </style>
+  .retro-section .review .rating {
+    font-size: 12px;
+    color: #39ff14;
+    letter-spacing: 1px;
+  }
+</style>
 
-  <h1>Avaliações Vertex</h1>
+<!-- Seção de avaliações retrô -->
+<section class="retro-section">
+  <h2>Avaliações Vertex</h2>
 
   <form id="review-form">
     <label for="name">NOME</label>
@@ -391,106 +379,78 @@ footer {
   <div class="reviews" id="reviews-container">
     <!-- Avaliações aparecerão aqui -->
   </div>
+</section>
 
-  <!-- Firebase SDKs -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
-    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
+<!-- Firebase SDKs (manter fora da tag <script type="module"> se já estiver usando Firebase em outro lugar) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
 
-    // Config Firebase - sua config aqui
-    const firebaseConfig = {
-      apiKey: "AIzaSyA6-BkFg93DKhFn7bc46gkXgZyM1qBz5KE",
-      authDomain: "vertex-41f04.firebaseapp.com",
-      projectId: "vertex-41f04",
-      storageBucket: "vertex-41f04.firebasestorage.app",
-      messagingSenderId: "112596070358",
-      appId: "1:112596070358:web:48fc171c439960f7f77e77",
-      measurementId: "G-5KE3BPZN5M"
-    };
+  const firebaseConfig = {
+    apiKey: "AIzaSyA6-BkFg93DKhFn7bc46gkXgZyM1qBz5KE",
+    authDomain: "vertex-41f04.firebaseapp.com",
+    projectId: "vertex-41f04",
+    storageBucket: "vertex-41f04.firebasestorage.app",
+    messagingSenderId: "112596070358",
+    appId: "1:112596070358:web:48fc171c439960f7f77e77",
+    measurementId: "G-5KE3BPZN5M"
+  };
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
-    const form = document.getElementById('review-form');
-    const reviewsContainer = document.getElementById('reviews-container');
+  const form = document.getElementById('review-form');
+  const reviewsContainer = document.getElementById('reviews-container');
 
-    // Enviar avaliação para Firestore
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-      const name = form.name.value.trim();
-      const comment = form.comment.value.trim();
-      const rating = form.rating.value;
+    const name = form.name.value.trim();
+    const comment = form.comment.value.trim();
+    const rating = form.rating.value;
 
-      if(!name || !comment || !rating) {
-        alert('Preencha todos os campos.');
-        return;
-      }
+    if(!name || !comment || !rating) {
+      alert('Preencha todos os campos.');
+      return;
+    }
 
-      try {
-        await addDoc(collection(db, 'avaliacoes'), {
-          name,
-          comment,
-          rating: Number(rating),
-          createdAt: serverTimestamp()
-        });
-        form.reset();
-      } catch (error) {
-        alert('Erro ao enviar avaliação: ' + error.message);
-      }
-    });
-
-    // Mostrar avaliações em tempo real
-    const q = query(collection(db, 'avaliacoes'), orderBy('createdAt', 'desc'));
-    onSnapshot(q, (snapshot) => {
-      reviewsContainer.innerHTML = '';
-      snapshot.forEach(doc => {
-        const data = doc.data();
-
-        // Montar estrelas simples
-        let stars = '';
-        for(let i = 0; i < data.rating; i++) {
-          stars += '★';
-        }
-        for(let i = data.rating; i < 5; i++) {
-          stars += '☆';
-        }
-
-        const reviewEl = document.createElement('div');
-        reviewEl.classList.add('review');
-        reviewEl.innerHTML = `
-          <div class="name">${data.name.toUpperCase()}</div>
-          <div class="comment">${data.comment}</div>
-          <div class="rating">${stars}</div>
-        `;
-
-        reviewsContainer.appendChild(reviewEl);
+    try {
+      await addDoc(collection(db, 'avaliacoes'), {
+        name,
+        comment,
+        rating: Number(rating),
+        createdAt: serverTimestamp()
       });
+      form.reset();
+    } catch (error) {
+      alert('Erro ao enviar avaliação: ' + error.message);
+    }
+  });
+
+  const q = query(collection(db, 'avaliacoes'), orderBy('createdAt', 'desc'));
+  onSnapshot(q, (snapshot) => {
+    reviewsContainer.innerHTML = '';
+    snapshot.forEach(doc => {
+      const data = doc.data();
+      let stars = '';
+      for(let i = 0; i < data.rating; i++) {
+        stars += '★';
+      }
+      for(let i = data.rating; i < 5; i++) {
+        stars += '☆';
+      }
+
+      const reviewEl = document.createElement('div');
+      reviewEl.classList.add('review');
+      reviewEl.innerHTML = `
+        <div class="name">${data.name.toUpperCase()}</div>
+        <div class="comment">${data.comment}</div>
+        <div class="rating">${stars}</div>
+      `;
+
+      reviewsContainer.appendChild(reviewEl);
     });
-  </script>
-    &copy; 2025 Vertex. Todos os direitos reservados.  
-  </footer>    <script>  
-    function toggleMenu() {  
-      const menu = document.getElementById("menu");  
-      menu.style.display = menu.style.display === "block" ? "none" : "block";  
-    }  
-  
-    function toggleDetails(event) {  
-      const member = event.currentTarget;  
-      const details = member.querySelector('.details');  
-      details.style.display = details.style.display === 'block' ? 'none' : 'block';  
-    }  
-  
-    const music = document.getElementById('music');  
-    let isPlaying = false;  
-  
-    function togglePlay() {  
-      if (isPlaying) {  
-        music.pause();  
-      } else {  
-        music.play();  
-      }  
-      isPlaying = !isPlaying;  
-    }  
-  </script>  </body>  
+  });
+</script>
+</script>  </body>
 </html>
