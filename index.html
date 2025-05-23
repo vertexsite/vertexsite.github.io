@@ -664,7 +664,6 @@
       }
     }
   </script>
-
 <!-- Avaliações -->
 <div>
   <h2>Avaliações</h2>
@@ -692,52 +691,32 @@
   }
 
   .review {
-    background: white;
     padding: 10px 15px;
     margin-bottom: 10px;
     border-radius: 6px;
-    box-shadow: 0 0 4px rgba(0,0,0,0.1);
     position: relative;
+    /* Fundo transparente */
+    background: transparent;
+    color: white; /* caso o fundo do site seja preto, ajuste se quiser */
   }
 
   .review-icons {
     position: absolute;
-    top: 6px;
-    left: 6px;
+    top: 10px;
+    right: 10px;  /* agora fica no canto superior direito */
   }
 
   .review-icons span {
     cursor: pointer;
-    margin-right: 8px;
-    font-weight: bold;
-    color: #888;
-  }
-
-  .review-icons span:hover {
-    color: #000;
-  }
-
-  textarea {
-    width: 100%;
-    resize: vertical;
-  }
-
-  input, select, textarea {
-    margin-bottom: 10px;
-    width: 100%;
-    padding: 5px;
-    box-sizing: border-box;
-  }
-
-  #form-feedback {
-    margin-top: 10px;
-    font-weight: bold;
+    margin-left: 10px; /* espaço entre os ícones */
+    font-size: 16px;
+    user-select: none;
   }
 </style>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
-  import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
+  import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, doc, deleteDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyA6-BkFg93DKhFn7bc46gkXgZyM1qBz5KE",
@@ -783,25 +762,36 @@
     }
   });
 
-  function showFeedback(message, type) {
-    feedbackEl.textContent = message;
-    feedbackEl.style.color = type === 'success' ? 'green' : 'red';
-    setTimeout(() => {
-      feedbackEl.textContent = '';
-    }, 3000);
-  }
+  function renderReview(doc) {
+    const data = doc.data();
 
-  function renderReview(id, data) {
     const div = document.createElement('div');
     div.className = 'review';
+    div.setAttribute('data-id', doc.id);
+
     div.innerHTML = `
       <div class="review-icons">
-        <span class="edit" data-id="${id}">✏️</span>
-        <span class="delete" data-id="${id}">🗑️</span>
+        <span class="edit" title="Editar">✏️</span>
+        <span class="delete" title="Excluir">🗑️</span>
       </div>
       <strong>${data.name}</strong> - Nota: ${data.rating}/5
       <p>${data.comment}</p>
+      <hr/>
     `;
+
+    // Ações dos botões
+    div.querySelector('.delete').addEventListener('click', async () => {
+      if(confirm('Tem certeza que quer apagar essa avaliação?')) {
+        await deleteDoc(doc.ref);
+      }
+    });
+
+    div.querySelector('.edit').addEventListener('click', () => {
+      const newComment = prompt('Editar comentário:', data.comment);
+      if(newComment !== null && newComment.trim() !== '') {
+        updateDoc(doc.ref, { comment: newComment.trim() });
+      }
+    });
 
     reviewsContainer.prepend(div);
   }
@@ -810,25 +800,17 @@
   onSnapshot(q, (snapshot) => {
     reviewsContainer.innerHTML = '';
     snapshot.forEach(doc => {
-      renderReview(doc.id, doc.data());
+      renderReview(doc);
     });
   });
 
-  reviewsContainer.addEventListener('click', async (e) => {
-    const id = e.target.dataset.id;
-    if (e.target.classList.contains('delete')) {
-      if (confirm('Deseja apagar esta avaliação?')) {
-        await deleteDoc(doc(db, 'avaliacoes', id));
-      }
-    } else if (e.target.classList.contains('edit')) {
-      const newComment = prompt('Editar comentário:');
-      if (newComment !== null) {
-        await updateDoc(doc(db, 'avaliacoes', id), {
-          comment: newComment
-        });
-      }
-    }
-  });
+  function showFeedback(message, type) {
+    feedbackEl.textContent = message;
+    feedbackEl.style.color = type === 'success' ? 'green' : 'red';
+    setTimeout(() => {
+      feedbackEl.textContent = '';
+    }, 3000);
+  }
 </script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
