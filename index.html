@@ -665,58 +665,82 @@
     }
   </script>
 
-  <!-- Firebase config (deve ser protegido em produção) -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
-    import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
+<!-- Firebase config (deve ser protegido em produção) -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
 
-    // Configuração do Firebase
-    const firebaseConfig = {
-      apiKey: "AIzaSyA6-BkFg93DKhFn7bc46gkXgZyM1qBz5KE",
-      authDomain: "vertex-41f04.firebaseapp.com",
-      projectId: "vertex-41f04",
-      storageBucket: "vertex-41f04.appspot.com",
-      messagingSenderId: "112596070358",
-      appId: "1:112596070358:web:48fc171c439960f7f77e77",
-      measurementId: "G-5KE3BPZN5M"
-    };
+  const firebaseConfig = {
+    apiKey: "AIzaSyA6-BkFg93DKhFn7bc46gkXgZyM1qBz5KE",
+    authDomain: "vertex-41f04.firebaseapp.com",
+    projectId: "vertex-41f04",
+    storageBucket: "vertex-41f04.appspot.com",
+    messagingSenderId: "112596070358",
+    appId: "1:112596070358:web:48fc171c439960f7f77e77",
+    measurementId: "G-5KE3BPZN5M"
+  };
 
-    // Inicialização
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
-    // Referências do DOM
-    const form = document.getElementById('review-form');
-    const reviewsContainer = document.getElementById('reviews-container');
-    const feedbackEl = document.getElementById('form-feedback');
+  const form = document.getElementById('review-form');
+  const reviewsContainer = document.getElementById('reviews-container');
+  const feedbackEl = document.getElementById('form-feedback');
 
-    // Envio do formulário
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-      const name = form.name.value.trim();
-      const comment = form.comment.value.trim();
-      const rating = form.rating.value;
+    const name = form.name.value.trim();
+    const comment = form.comment.value.trim();
+    const rating = form.rating.value;
 
-      if(!name || !comment || !rating) {
-        showFeedback('Preencha todos os campos!', 'error');
-        return;
-      }
+    if (!name || !comment || !rating) {
+      showFeedback('Preencha todos os campos!', 'error');
+      return;
+    }
 
-      try {
-        await addDoc(collection(db, 'avaliacoes'), {
-          name,
-          comment,
-          rating: Number(rating),
-          createdAt: serverTimestamp()
-        });
-        form.reset();
-        showFeedback('Avaliação enviada com sucesso!', 'success');
-      } catch (error) {
-        console.error('Erro ao enviar avaliação:', error);
-        showFeedback('Erro ao enviar avaliação. Tente novamente.', 'error');
-      }
-        </script>
+    try {
+      await addDoc(collection(db, 'avaliacoes'), {
+        name,
+        comment,
+        rating: Number(rating),
+        createdAt: serverTimestamp()
+      });
+      form.reset();
+      showFeedback('Avaliação enviada com sucesso!', 'success');
+    } catch (error) {
+      console.error('Erro ao enviar avaliação:', error);
+      showFeedback('Erro ao enviar avaliação. Tente novamente.', 'error');
+    }
+  });
+
+  function renderReview(data) {
+    const div = document.createElement('div');
+    div.className = 'review';
+    div.innerHTML = `
+      <strong>${data.name}</strong> - Nota: ${data.rating}/5
+      <p>${data.comment}</p>
+      <hr/>
+    `;
+    reviewsContainer.prepend(div);
+  }
+
+  const q = query(collection(db, 'avaliacoes'), orderBy('createdAt', 'desc'));
+  onSnapshot(q, (snapshot) => {
+    reviewsContainer.innerHTML = '';
+    snapshot.forEach(doc => {
+      renderReview(doc.data());
+    });
+  });
+
+  function showFeedback(message, type) {
+    feedbackEl.textContent = message;
+    feedbackEl.style.color = type === 'success' ? 'green' : 'red';
+    setTimeout(() => {
+      feedbackEl.textContent = '';
+    }, 3000);
+  }
+</script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
 
