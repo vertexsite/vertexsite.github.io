@@ -665,10 +665,79 @@
     }
   </script>
 
-<!-- Firebase config (deve ser protegido em produção) -->
+<!-- Avaliações -->
+<div>
+  <h2>Avaliações</h2>
+  <form id="review-form">
+    <input type="text" name="name" placeholder="Seu nome" required><br>
+    <textarea name="comment" placeholder="Comentário" required></textarea><br>
+    <select name="rating" required>
+      <option value="">Nota</option>
+      <option value="5">5 - Excelente</option>
+      <option value="4">4 - Muito bom</option>
+      <option value="3">3 - Bom</option>
+      <option value="2">2 - Regular</option>
+      <option value="1">1 - Ruim</option>
+    </select><br>
+    <button type="submit">Enviar Avaliação</button>
+    <div id="form-feedback"></div>
+  </form>
+
+  <div id="reviews-container"></div>
+</div>
+
+<style>
+  #review-form {
+    margin-bottom: 20px;
+  }
+
+  .review {
+    background: white;
+    padding: 10px 15px;
+    margin-bottom: 10px;
+    border-radius: 6px;
+    box-shadow: 0 0 4px rgba(0,0,0,0.1);
+    position: relative;
+  }
+
+  .review-icons {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+  }
+
+  .review-icons span {
+    cursor: pointer;
+    margin-right: 8px;
+    font-weight: bold;
+    color: #888;
+  }
+
+  .review-icons span:hover {
+    color: #000;
+  }
+
+  textarea {
+    width: 100%;
+    resize: vertical;
+  }
+
+  input, select, textarea {
+    margin-bottom: 10px;
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+  }
+
+  #form-feedback {
+    margin-top: 10px;
+    font-weight: bold;
+  }
+</style>
+
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
-  import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
+  import { getFirestore, collection, addDoc, onSnapshot, query, orderBy, serverTimestamp, deleteDoc, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
 
   const firebaseConfig = {
     apiKey: "AIzaSyA6-BkFg93DKhFn7bc46gkXgZyM1qBz5KE",
@@ -714,25 +783,6 @@
     }
   });
 
-  function renderReview(data) {
-    const div = document.createElement('div');
-    div.className = 'review';
-    div.innerHTML = `
-      <strong>${data.name}</strong> - Nota: ${data.rating}/5
-      <p>${data.comment}</p>
-      <hr/>
-    `;
-    reviewsContainer.prepend(div);
-  }
-
-  const q = query(collection(db, 'avaliacoes'), orderBy('createdAt', 'desc'));
-  onSnapshot(q, (snapshot) => {
-    reviewsContainer.innerHTML = '';
-    snapshot.forEach(doc => {
-      renderReview(doc.data());
-    });
-  });
-
   function showFeedback(message, type) {
     feedbackEl.textContent = message;
     feedbackEl.style.color = type === 'success' ? 'green' : 'red';
@@ -740,6 +790,45 @@
       feedbackEl.textContent = '';
     }, 3000);
   }
+
+  function renderReview(id, data) {
+    const div = document.createElement('div');
+    div.className = 'review';
+    div.innerHTML = `
+      <div class="review-icons">
+        <span class="edit" data-id="${id}">✏️</span>
+        <span class="delete" data-id="${id}">🗑️</span>
+      </div>
+      <strong>${data.name}</strong> - Nota: ${data.rating}/5
+      <p>${data.comment}</p>
+    `;
+
+    reviewsContainer.prepend(div);
+  }
+
+  const q = query(collection(db, 'avaliacoes'), orderBy('createdAt', 'desc'));
+  onSnapshot(q, (snapshot) => {
+    reviewsContainer.innerHTML = '';
+    snapshot.forEach(doc => {
+      renderReview(doc.id, doc.data());
+    });
+  });
+
+  reviewsContainer.addEventListener('click', async (e) => {
+    const id = e.target.dataset.id;
+    if (e.target.classList.contains('delete')) {
+      if (confirm('Deseja apagar esta avaliação?')) {
+        await deleteDoc(doc(db, 'avaliacoes', id));
+      }
+    } else if (e.target.classList.contains('edit')) {
+      const newComment = prompt('Editar comentário:');
+      if (newComment !== null) {
+        await updateDoc(doc(db, 'avaliacoes', id), {
+          comment: newComment
+        });
+      }
+    }
+  });
 </script>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
