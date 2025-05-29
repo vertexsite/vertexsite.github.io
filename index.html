@@ -1,973 +1,1151 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vertex - Tecnologia e Inovação em Jogos e Modelagem 3D</title>
-  
-  <!-- Google Fonts com preload -->
-  <link rel="preload" href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Nosifer&family=Press+Start+2P&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Nosifer&family=Press+Start+2P&display=swap" rel="stylesheet"></noscript>
-
-  <!-- Meta tags melhoradas -->
-  <meta name="description" content="Vertex: Especialistas em desenvolvimento de jogos, modelagem 3D e inteligência artificial. Criamos experiências imersivas com tecnologia de ponta.">
-  <meta name="keywords" content="Vertex, jogos indie, modelagem 3D, desenvolvimento de jogos, inteligência artificial, terror anos 80, Horror Cult, tecnologia games">
-  <meta name="author" content="Vertex Tecnologia">
-  <meta property="og:title" content="Vertex - Inovação em Jogos e Tecnologia">
-  <meta property="og:description" content="Desenvolvemos jogos imersivos e soluções tecnológicas inovadoras.">
-  <meta property="og:type" content="website">
-  
-  <style>
-    :root {
-      --primary-color: gold;
-      --secondary-color: #900;
-      --bg-dark: #111;
-      --bg-darker: #000;
-      --text-light: #fff;
-      --text-gray: #ccc;
-    }
-    
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--bg-dark);
-      color: var(--text-light);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-    
-    /* Header melhorado */
-    header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 30px;
-      background-color: var(--bg-darker);
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-    }
-    
-    .menu-button {
-      font-size: 30px;
-      cursor: pointer;
-      color: var(--text-light);
-      user-select: none;
-      transition: color 0.3s;
-    }
-    
-    .menu-button:hover {
-      color: var(--primary-color);
-    }
-    
-    .menu {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.9);
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      display: none;
-    }
-    
-    .menu a {
-      padding: 15px 0;
-      color: var(--text-light);
-      text-decoration: none;
-      font-size: 1.5rem;
-      transition: color 0.3s;
-    }
-    
-    .menu a:hover {
-      color: var(--primary-color);
-    }
-    
-    .close-menu {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 2rem;
-      color: var(--text-light);
-      cursor: pointer;
-    }
-    
-    .title {
-      font-size: 32px;
-      font-weight: bold;
-      color: var(--primary-color);
-      font-family: 'Cinzel Decorative', cursive;
-      text-shadow: 1px 1px 10px var(--primary-color);
-    }
-    
-    /* Hero section */
-    .hero {
-      position: relative;
-      width: 100%;
-      overflow: hidden;
-      height: 60vh;
-      max-height: 500px;
-    }
-    
-    .hero img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      display: block;
-    }
-    
-    .grid-effect {
-      height: 50px;
-      background: repeating-linear-gradient(
-        45deg,
-        rgba(255, 0, 255, 0.3),
-        rgba(255, 0, 255, 0.3) 10px,
-        transparent 10px,
-        transparent 20px
-      );
-      animation: moveGrid 4s linear infinite;
-    }
-    
-    @keyframes moveGrid {
-      from { background-position: 0 0; }
-      to { background-position: 100px 100px; }
-    }
-    
-    /* Main content */
-    main {
-      flex: 1;
-      padding: 0 20px;
-    }
-    
-    section {
-      padding: 40px 0;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-    
-    h2 {
-      color: var(--primary-color);
-      margin-bottom: 25px;
-      font-size: 2rem;
-      text-align: center;
-    }
-    
-    /* Projects section */
-    .project {
-      border: 2px solid var(--primary-color);
-      padding: 25px;
-      background: #222;
-      margin-top: 30px;
-      text-align: center;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      border-radius: 8px;
-    }
-    
-    .project img {
-      width: 100%;
-      max-width: 600px;
-      height: auto;
-      aspect-ratio: 2/3;
-      object-fit: cover;
-      border-radius: 8px;
-      box-shadow: 0 0 15px var(--primary-color);
-      margin-bottom: 20px;
-    }
-    
-    .project h3 {
-      font-family: 'Nosifer', cursive;
-      font-size: 2.2rem;
-      color: var(--primary-color);
-      text-shadow: 2px 2px 5px var(--secondary-color);
-      letter-spacing: 3px;
-      margin: 20px 0;
-    }
-    
-    .project p {
-      font-size: 1.1rem;
-      line-height: 1.6;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    
-    /* Team section */
-    .team-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 20px;
-      margin-top: 30px;
-    }
-    
-    .member {
-      background-color: #1a1a1a;
-      padding: 20px;
-      border-left: 4px solid var(--primary-color);
-      border-radius: 4px;
-      cursor: pointer;
-      transition: transform 0.3s;
-    }
-    
-    .member:hover {
-      transform: translateY(-5px);
-    }
-    
-    .member h3 {
-      margin: 0 0 10px 0;
-      color: var(--primary-color);
-    }
-    
-    .details {
-      color: var(--text-gray);
-      font-size: 0.9rem;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height 0.3s ease-out;
-    }
-    
-    .member.active .details {
-      max-height: 100px;
-      margin-top: 10px;
-    }
-    
-    /* Contact section */
-    .contact-info {
-      text-align: center;
-      font-size: 1.1rem;
-      line-height: 1.8;
-    }
-    
-    .contact-info a {
-      color: var(--primary-color);
-      text-decoration: none;
-      transition: opacity 0.3s;
-    }
-    
-    .contact-info a:hover {
-      opacity: 0.8;
-      text-decoration: underline;
-    }
-    
-    /* Footer */
-    footer {
-      text-align: center;
-      padding: 30px 20px;
-      background: var(--bg-darker);
-      color: var(--text-gray);
-      margin-top: 50px;
-    }
-    
-    footer p {
-      margin: 5px 0;
-    }
-    
-    /* Cassette player */
-    .cassette-container {
-      text-align: center;
-      margin: 50px auto;
-      max-width: 200px;
-    }
-    
-    .cassette-container img {
-      width: 100%;
-      cursor: pointer;
-      transition: transform 0.3s;
-    }
-    
-    .cassette-container img:hover {
-      transform: scale(1.05);
-    }
-    
-    /* Retro reviews section */
-    .retro-section {
-      background: #121212;
-      color: #39ff14;
-      font-family: 'Press Start 2P', cursive;
-      padding: 40px 20px;
-      margin-top: 50px;
-      border-top: 3px solid var(--primary-color);
-    }
-    
-    .retro-section h2 {
-      text-align: center;
-      color: #ff00ff;
-      text-shadow: 0 0 10px #ff00ff;
-      margin-bottom: 30px;
-      font-size: 1.5rem;
-    }
-    
-    .retro-section form {
-      max-width: 500px;
-      margin: 0 auto 40px;
-      background: #1a1a1a;
-      padding: 30px;
-      border: 2px solid #ff00ff;
-      box-shadow: 0 0 20px #ff00ff;
-      border-radius: 8px;
-    }
-    
-    .retro-section label {
-      display: block;
-      margin-bottom: 15px;
-      color: #00ffff;
-      font-size: 0.8rem;
-      letter-spacing: 1.5px;
-    }
-    
-    .retro-section input[type="text"],
-    .retro-section textarea,
-    .retro-section select {
-      width: 100%;
-      background: #121212;
-      border: 2px solid #39ff14;
-      color: #39ff14;
-      font-family: 'Press Start 2P', cursive;
-      font-size: 0.8rem;
-      padding: 12px;
-      margin-bottom: 25px;
-      border-radius: 4px;
-      outline: none;
-      box-shadow: 0 0 5px #39ff14 inset;
-      resize: none;
-    }
-    
-    .retro-section textarea {
-      height: 100px;
-    }
-    
-    .retro-section input[type="submit"] {
-      background: #ff00ff;
-      color: #121212;
-      border: none;
-      padding: 15px 25px;
-      cursor: pointer;
-      font-family: 'Press Start 2P', cursive;
-      font-size: 0.9rem;
-      letter-spacing: 2px;
-      border-radius: 6px;
-      transition: all 0.3s ease;
-      width: 100%;
-    }
-    
-    .retro-section input[type="submit"]:hover {
-      background: #ff66ff;
-      transform: translateY(-2px);
-    }
-    
-    .retro-section .reviews {
-      max-width: 600px;
-      margin: 0 auto;
-      border: 2px solid #00ffff;
-      border-radius: 8px;
-      padding: 30px;
-      box-shadow: 0 0 20px #00ffff;
-      background: #1a1a1a;
-    }
-    
-    .retro-section .review {
-      border-bottom: 1px solid #39ff14;
-      padding-bottom: 20px;
-      margin-bottom: 20px;
-    }
-    
-    .retro-section .review:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
-    }
-    
-    .retro-section .review .name {
-      color: #ff00ff;
-      font-size: 0.9rem;
-      margin-bottom: 10px;
-    }
-    
-    .retro-section .review .comment {
-      font-size: 0.7rem;
-      margin-bottom: 10px;
-      line-height: 1.6;
-    }
-    
-    .retro-section .review .rating {
-      font-size: 0.9rem;
-      color: #39ff14;
-      letter-spacing: 2px;
-    }
-    
-    /* Modal para imagens */
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 2000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0,0,0,0.9);
-      overflow: auto;
-    }
-    
-    .modal-content {
-      margin: auto;
-      display: block;
-      max-width: 90%;
-      max-height: 90%;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-    
-    .close-modal {
-      position: absolute;
-      top: 20px;
-      right: 35px;
-      color: white;
-      font-size: 40px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-    
-    /* Responsividade */
-    @media (max-width: 768px) {
-      .hero {
-        height: 40vh;
-      }
-      
-      .title {
-        font-size: 24px;
-      }
-      
-      section {
-        padding: 30px 15px;
-      }
-      
-      .project h3 {
-        font-size: 1.8rem;
-      }
-      
-      .retro-section form {
-        padding: 20px;
-      }
-    }
-  </style>
-</head>
-<body>
-  <header>
-    <button class="menu-button" aria-label="Abrir menu" onclick="toggleMenu()">≡</button>
-    <h1 class="title">Vertex</h1>
-    <div class="menu" id="menu">
-      <button class="close-menu" aria-label="Fechar menu" onclick="toggleMenu()">×</button>
-      <a href="#sobre" onclick="toggleMenu()">Sobre</a>
-      <a href="#projetos" onclick="toggleMenu()">Projetos</a>
-      <a href="#equipe" onclick="toggleMenu()">Equipe</a>
-      <a href="#contato" onclick="toggleMenu()">Contato</a>
-      <a href="#avaliacoes" onclick="toggleMenu()">Avaliações</a>
-    </div>
-  </header>
-
-  <div class="grid-effect"></div>
-
-  <div class="hero">
-    <img src="https://i.pinimg.com/originals/07/b3/05/07b305e5e03ba7f5660ee3f5d79f154f.gif" alt="Cena de terror anos 80 com efeitos glitch" loading="lazy" />
-  </div>
-
-  <div class="grid-effect"></div>
-
-  <main>
-    <section id="sobre">
-      <h2>Sobre Nós</h2>
-      <p>A Vertex é uma empresa de tecnologia e inovação fundada em 2023 por Nicolas Camargo Marques. Especializamo-nos no desenvolvimento de jogos imersivos, modelagem 3D de alta qualidade e soluções de inteligência artificial inovadoras.</p>
-      <p>Nossa missão é criar experiências digitais únicas que combinam narrativas envolventes com tecnologia de ponta, sempre com atenção aos detalhes e qualidade excepcional.</p>
-    </section>
-
-    <section id="projetos">
-      <h2>Nossos Projetos</h2>
-      <article class="project">
-        <a href="horror-cult.html">
-  <img src="https://i.ibb.co/Rk6fmKJQ/poster.jpg" alt="Imagem do Horror Cult" />
-        </a>
-        <h3>Horror Cult</h3>
-        <p>Horror Cult é um jogo de terror psicológico que se passa nos anos 80, no sul dos EUA. Combinando elementos de survival horror com uma narrativa profunda sobre os horrores do racismo, o jogo oferece uma experiência imersiva com IA inovadora e mecânicas inteligentes.</p>
-        <p><strong>Status:</strong> Em desenvolvimento - Lançamento previsto para 2025</p>
-      </article>
-    </section>
-
-    <section id="equipe">
-      <h2>Nossa Equipe</h2>
-      <div class="team-grid">
-        <div class="member" onclick="toggleDetails(this)">
-          <h3>Nicolas Camargo Marques</h3>
-          <div class="details">CEO e Fundador. Responsável pela programação, modelagem 3D, engenharia mecânica e edição de vídeo/imagem.</div>
-        </div>
-        <div class="member" onclick="toggleDetails(this)">
-          <h3>Cauã Klippel Fergutz</h3>
-          <div class="details">Vice-CEO e Co-fundador. Programador e designer de jogos especializado em mecânicas de gameplay.</div>
-        </div>
-        <div class="member" onclick="toggleDetails(this)">
-          <h3>Matheus Nunes</h3>
-          <div class="details">Desenvolvedor de jogos e especialista em hardware. Responsável pela montagem e otimização de PCs.</div>
-        </div>
-        <div class="member" onclick="toggleDetails(this)">
-          <h3>Luan Chaves</h3>
-          <div class="details">Programador de jogos com foco em inteligência artificial e sistemas complexos.</div>
-        </div>
-        <div class="member" onclick="toggleDetails(this)">
-          <h3>Luiz Felipe</h3>
-          <div class="details">Artista 3D especializado em modelagem de personagens e ambientes realistas.</div>
-        </div>
-        <div class="member" onclick="toggleDetails(this)">
-          <h3>Henrique Marques</h3>
-          <div class="details">Designer de jogos com expertise em narrativa e design de níveis.</div>
-        </div>
-        <div class="member" onclick="toggleDetails(this)">
-          <h3>Henrique Longi</h3>
-          <div class="details">Desenvolvedor full-stack e editor de vídeo/imagem para trailers e materiais promocionais.</div>
-        </div>
-        <div class="member" onclick="toggleDetails(this)">
-          <h3>Davi Araldi</h3>
-          <div class="details">Engenheiro de software responsável por arquitetura de sistemas e otimização.</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="contato">
-      
-<section id="contato">
-  <h2>Contato</h2>
-  <div class="contact-info">
-    <p>Interessado em nosso trabalho? Entre em contato para parcerias, oportunidades ou mais informações!</p>
-    <p>✉️ <a href="mailto:contato.vertex.oficial@gmail.com">contato.vertex.oficial@gmail.com</a></p>
-    <p>📞 <a href="tel:+5554992451957">+55 (54) 99245-1957</a></p>
-    <p>
-      <a href="https://www.instagram.com/_vertex_oficial?igsh=OXcycWgzMnRsZWd4" target="_blank" rel="noopener noreferrer" style="text-decoration:none; margin-right:15px;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#E4405F" viewBox="0 0 24 24" style="vertical-align:middle; margin-right:5px;">
-          <path d="M7.75 2A5.75 5.75 0 002 7.75v8.5A5.75 5.75 0 007.75 22h8.5A5.75 5.75 0 0022 16.25v-8.5A5.75 5.75 0 0016.25 2h-8.5zm7.25 3.5a1.25 1.25 0 110 2.5 1.25 1.25 0 010-2.5zM12 7a5 5 0 110 10 5 5 0 010-10zm0 2a3 3 0 100 6 3 3 0 000-6z"/>
-        </svg>
-        @_vertex_oficial
-      </a>
-      <a href="https://youtube.com/@vertex_oficial?si=JuUVoWxG_Vvnxy2e" target="_blank" rel="noopener noreferrer" style="text-decoration:none; margin-right:15px;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#FF0000" viewBox="0 0 24 24" style="vertical-align:middle; margin-right:5px;">
-          <path d="M10 15l5.19-3L10 9v6zM21.8 7.2a2.44 2.44 0 00-1.72-1.72C18.89 5 12 5 12 5s-6.89 0-8.08.48a2.44 2.44 0 00-1.72 1.72A25.08 25.08 0 002 12a25.08 25.08 0 00.18 4.8 2.44 2.44 0 001.72 1.72C5.11 19 12 19 12 19s6.89 0 8.08-.48a2.44 2.44 0 001.72-1.72A25.08 25.08 0 0022 12a25.08 25.08 0 00-.2-4.8z"/>
-        </svg>
-        Vertex_oficial
-      </a>
-      <a href="https://reddit.com/avatar/shop?utm_medium=android_app&utm_source=share" target="_blank" rel="noopener noreferrer" style="text-decoration:none;">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#FF4500" viewBox="0 0 24 24" style="vertical-align:middle; margin-right:5px;">
-          <path d="M24 12a12 12 0 11-23.99.15A12 12 0 0124 12zm-7.04-2.52a1.5 1.5 0 10-2.93-.31 5.73 5.73 0 00-3.95 0 1.5 1.5 0 10-2.77.94c0 1.05 1.6 1.88 3.6 2.05a2.85 2.85 0 005.45 0c2-.17 3.6-1 3.6-2.05a1.5 1.5 0 00-1.95-1.63zM9 14a1 1 0 11-1-1 1 1 0 011 1zm5 0a1 1 0 11-1-1 1 1 0 011 1z"/>
-        </svg>
-        Vertex_oficial
-      </a>
-    </p>
-  </div>
-</section>
-    <div class="cassette-container">
-      <img src="https://i.imgur.com/aWGROUg.png" alt="Player de cassete retrô" loading="lazy" onclick="togglePlay()" />
-    </div>
-
-    <audio id="music" loop>
-      <source src="https://www.dropbox.com/scl/fi/xikhgmtqvyluqovrw61aj/relaxing-ambient-music-337579.mp3?rlkey=qe25wu91al0bdpmkq4k4pj8we&raw=1" type="audio/mpeg">
-      Seu navegador não suporta o elemento de áudio.
-    </audio>
-
-    <section class="retro-section" id="avaliacoes">
-      <h2>Avaliações Vertex</h2>
-
-      <form id="review-form">
-        <label for="name">NOME</label>
-        <input type="text" id="name" required placeholder="Seu nome" aria-label="Seu nome" />
-
-        <label for="comment">COMENTÁRIO</label>
-        <textarea id="comment" rows="3" required placeholder="Deixe seu comentário" aria-label="Seu comentário"></textarea>
-
-        <label for="rating">NOTA</label>
-        <select id="rating" required aria-label="Sua avaliação">
-          <option value="" disabled selected>Selecione a nota</option>
-          <option value="1">1 - Péssimo</option>
-          <option value="2">2 - Ruim</option>
-          <option value="3">3 - Médio</option>
-          <option value="4">4 - Bom</option>
-          <option value="5">5 - Excelente</option>
-        </select>
-
-        <input type="submit" value="ENVIAR AVALIAÇÃO" aria-label="Enviar avaliação" />
-        <div id="form-feedback" style="display: none; margin-top: 15px; font-size: 0.8rem;"></div>
-      </form>
-
-      <div class="reviews" id="reviews-container">
-        <!-- Avaliações serão carregadas aqui -->
-      </div>
-    </section>
-  </main>
-
-  <footer>
-    <p>&copy; 2023 Vertex Tecnologia. Todos os direitos reservados.</p>
-    <p>Desenvolvido com paixão por games e tecnologia.</p>
-  </footer>
-
-  <!-- Modal para imagens -->
-  <div id="image-modal" class="modal">
-    <span class="close-modal" onclick="closeModal()">&times;</span>
-    <img class="modal-content" id="modal-image" alt="Visualização ampliada">
-  </div>
-
-  <script>
-    // Menu toggle
-    function toggleMenu() {
-      const menu = document.getElementById('menu');
-      menu.style.display = menu.style.display === 'flex' ? 'none' : 'flex';
-      document.body.style.overflow = menu.style.display === 'flex' ? 'hidden' : '';
-    }
-    
-    // Team member details
-    function toggleDetails(element) {
-      element.classList.toggle('active');
-    }
-    
-    // Cassette player
-    const music = document.getElementById('music');
-    let isPlaying = false;
-    
-    function togglePlay() {
-      if (isPlaying) {
-        music.pause();
-      } else {
-        music.play().catch(e => console.log('Autoplay prevented:', e));
-      }
-      isPlaying = !isPlaying;
-    }
-    
-    // Image modal
-    const modal = document.getElementById('image-modal');
-    const modalImg = document.getElementById('modal-image');
-    
-    document.getElementById('project-image').onclick = function() {
-      modal.style.display = 'block';
-      modalImg.src = this.src;
-    }
-    
-    function closeModal() {
-      modal.style.display = 'none';
-    }
-    
-    // Close modal when clicking outside
-    window.onclick = function(event) {
-      if (event.target === modal) {
-        closeModal();
-      }
-    }
-  </script>
-
-<!-- Firebase config (deve ser protegido em produção) -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
-  import { 
-    getFirestore, 
-    collection, 
-    addDoc, 
-    onSnapshot, 
-    query, 
-    orderBy, 
-    serverTimestamp,
-    deleteDoc,
-    doc 
-  } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyA6-BkFg93DKhFn7bc46gkXgZyM1qBz5KE",
-    authDomain: "vertex-41f04.firebaseapp.com",
-    projectId: "vertex-41f04",
-    storageBucket: "vertex-41f04.appspot.com",
-    messagingSenderId: "112596070358",
-    appId: "1:112596070358:web:48fc171c439960f7f77e77",
-    measurementId: "G-5KE3BPZN5M"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  const form = document.getElementById('review-form');
-  const reviewsContainer = document.getElementById('reviews-container');
-  const feedbackEl = document.getElementById('form-feedback');
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const name = form.name.value.trim();
-    const comment = form.comment.value.trim();
-    const rating = form.rating.value;
-
-    if (!name || !comment || !rating) {
-      showFeedback('Preencha todos os campos!', 'error');
-      return;
-    }
-
-    try {
-      await addDoc(collection(db, 'avaliacoes'), {
-        name,
-        comment,
-        rating: Number(rating),
-        createdAt: serverTimestamp()
-      });
-      form.reset();
-      showFeedback('Avaliação enviada com sucesso!', 'success');
-    } catch (error) {
-      console.error('Erro ao enviar avaliação:', error);
-      showFeedback('Erro ao enviar avaliação. Tente novamente.', 'error');
-    }
-  });
-
-  function renderReview(data, id) {
-    const div = document.createElement('div');
-    div.className = 'review';
-    div.style.position = 'relative'; // para o botão ficar alinhado no canto
-    div.innerHTML = `
-      <strong>${data.name}</strong> - Nota: ${data.rating}/5
-      <p>${data.comment}</p>
-      <button class="delete-btn" style="
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        background-color: #ff0000;
-        color: white;
-        border: none;
-        padding: 3px 8px;
-        font-weight: bold;
-        cursor: pointer;
-        border-radius: 3px;
-        font-family: 'Courier New', Courier, monospace;
-        font-size: 12px;
-      ">Apagar</button>
-      <hr/>
-    `;
-
-    div.querySelector('.delete-btn').addEventListener('click', async () => {
-      if (confirm('Tem certeza que deseja apagar esta avaliação?')) {
-        try {
-          await deleteDoc(doc(db, 'avaliacoes', id));
-          showFeedback('Avaliação apagada com sucesso!', 'success');
-        } catch (error) {
-<!-- Firebase config (deve ser protegido em produção) -->
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-app.js";
-  import { 
-    getFirestore, 
-    collection, 
-    addDoc, 
-    onSnapshot, 
-    query, 
-    orderBy, 
-    serverTimestamp,
-    deleteDoc,
-    doc 
-  } from "https://www.gstatic.com/firebasejs/10.1.0/firebase-firestore.js";
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyA6-BkFg93DKhFn7bc46gkXgZyM1qBz5KE",
-    authDomain: "vertex-41f04.firebaseapp.com",
-    projectId: "vertex-41f04",
-    storageBucket: "vertex-41f04.appspot.com",
-    messagingSenderId: "112596070358",
-    appId: "1:112596070358:web:48fc171c439960f7f77e77",
-    measurementId: "G-5KE3BPZN5M"
-  };
-
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  const form = document.getElementById('review-form');
-  const reviewsContainer = document.getElementById('reviews-container');
-  const feedbackEl = document.getElementById('form-feedback');
-
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const name = form.name.value.trim();
-    const comment = form.comment.value.trim();
-    const rating = form.rating.value;
-
-    if (!name || !comment || !rating) {
-      showFeedback('Preencha todos os campos!', 'error');
-      return;
-    }
-
-    try {
-      await addDoc(collection(db, 'avaliacoes'), {
-        name,
-        comment,
-        rating: Number(rating),
-        createdAt: serverTimestamp()
-      });
-      form.reset();
-      showFeedback('Avaliação enviada com sucesso!', 'success');
-    } catch (error) {
-      console.error('Erro ao enviar avaliação:', error);
-      showFeedback('Erro ao enviar avaliação. Tente novamente.', 'error');
-    }
-  });
-
-  function renderReview(data, id) {
-    const div = document.createElement('div');
-    div.className = 'review';
-    div.style.position = 'relative'; // para o botão ficar alinhado no canto
-    div.innerHTML = `
-      <strong>${data.name}</strong> - Nota: ${data.rating}/5
-      <p>${data.comment}</p>
-      <button class="delete-btn" style="
-        position: absolute;
-        top: 5px;
-        right: 5px;
-        background-color: #ff0000;
-        color: white;
-        border: none;
-        padding: 3px 8px;
-        font-weight: bold;
-        cursor: pointer;
-        border-radius: 3px;
-        font-family: 'Courier New', Courier, monospace;
-        font-size: 12px;
-      ">Apagar</button>
-      <hr/>
-    `;
-
-    div.querySelector('.delete-btn').addEventListener('click', async () => {
-      if (confirm('Tem certeza que deseja apagar esta avaliação?')) {
-        try {
-          await deleteDoc(doc(db, 'avaliacoes', id));
-          showFeedback('Avaliação apagada com sucesso!', 'success');
-        } catch (error) {
-          console.error('Erro ao apagar avaliação:', error);
-          showFeedback('Erro ao apagar avaliação.', 'error');
-        }
-      }
-    });
-
-    reviewsContainer.prepend(div);
-  }
-
-  const q = query(collection(db, 'avaliacoes'), orderBy('createdAt', 'desc'));
-  onSnapshot(q, (snapshot) => {
-    reviewsContainer.innerHTML = '';
-    snapshot.forEach(docSnap => {
-      renderReview(docSnap.data(), docSnap.id);
-    });
-  });
-
-  function showFeedback(message, type) {
-    feedbackEl.textContent = message;
-    feedbackEl.style.color = type === 'success' ? 'green' : 'red';
-    setTimeout(() => {
-      feedbackEl.textContent = '';
-    }, 3000);
-  }
-</script>
+<html lang="en"><head><script type="text/javascript" crossorigin="anonymous" async="" src="https://us-assets.i.posthog.com/static/array.js"></script><script src="https://static.readdy.ai/static/e.js"></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vertex - Innovation &amp; Technology</title>
+<script src="https://cdn.tailwindcss.com/3.4.16"></script>
+<script>tailwind.config={theme:{extend:{colors:{primary:'#FFD700',secondary:'#000000'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+<style>*, ::before, ::after{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }::backdrop{--tw-border-spacing-x:0;--tw-border-spacing-y:0;--tw-translate-x:0;--tw-translate-y:0;--tw-rotate:0;--tw-skew-x:0;--tw-skew-y:0;--tw-scale-x:1;--tw-scale-y:1;--tw-pan-x: ;--tw-pan-y: ;--tw-pinch-zoom: ;--tw-scroll-snap-strictness:proximity;--tw-gradient-from-position: ;--tw-gradient-via-position: ;--tw-gradient-to-position: ;--tw-ordinal: ;--tw-slashed-zero: ;--tw-numeric-figure: ;--tw-numeric-spacing: ;--tw-numeric-fraction: ;--tw-ring-inset: ;--tw-ring-offset-width:0px;--tw-ring-offset-color:#fff;--tw-ring-color:rgb(59 130 246 / 0.5);--tw-ring-offset-shadow:0 0 #0000;--tw-ring-shadow:0 0 #0000;--tw-shadow:0 0 #0000;--tw-shadow-colored:0 0 #0000;--tw-blur: ;--tw-brightness: ;--tw-contrast: ;--tw-grayscale: ;--tw-hue-rotate: ;--tw-invert: ;--tw-saturate: ;--tw-sepia: ;--tw-drop-shadow: ;--tw-backdrop-blur: ;--tw-backdrop-brightness: ;--tw-backdrop-contrast: ;--tw-backdrop-grayscale: ;--tw-backdrop-hue-rotate: ;--tw-backdrop-invert: ;--tw-backdrop-opacity: ;--tw-backdrop-saturate: ;--tw-backdrop-sepia: ;--tw-contain-size: ;--tw-contain-layout: ;--tw-contain-paint: ;--tw-contain-style: }/* ! tailwindcss v3.4.16 | MIT License | https://tailwindcss.com */*,::after,::before{box-sizing:border-box;border-width:0;border-style:solid;border-color:#e5e7eb}::after,::before{--tw-content:''}:host,html{line-height:1.5;-webkit-text-size-adjust:100%;-moz-tab-size:4;tab-size:4;font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";font-feature-settings:normal;font-variation-settings:normal;-webkit-tap-highlight-color:transparent}body{margin:0;line-height:inherit}hr{height:0;color:inherit;border-top-width:1px}abbr:where([title]){-webkit-text-decoration:underline dotted;text-decoration:underline dotted}h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight:inherit}a{color:inherit;text-decoration:inherit}b,strong{font-weight:bolder}code,kbd,pre,samp{font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;font-feature-settings:normal;font-variation-settings:normal;font-size:1em}small{font-size:80%}sub,sup{font-size:75%;line-height:0;position:relative;vertical-align:baseline}sub{bottom:-.25em}sup{top:-.5em}table{text-indent:0;border-color:inherit;border-collapse:collapse}button,input,optgroup,select,textarea{font-family:inherit;font-feature-settings:inherit;font-variation-settings:inherit;font-size:100%;font-weight:inherit;line-height:inherit;letter-spacing:inherit;color:inherit;margin:0;padding:0}button,select{text-transform:none}button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){-webkit-appearance:button;background-color:transparent;background-image:none}:-moz-focusring{outline:auto}:-moz-ui-invalid{box-shadow:none}progress{vertical-align:baseline}::-webkit-inner-spin-button,::-webkit-outer-spin-button{height:auto}[type=search]{-webkit-appearance:textfield;outline-offset:-2px}::-webkit-search-decoration{-webkit-appearance:none}::-webkit-file-upload-button{-webkit-appearance:button;font:inherit}summary{display:list-item}blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{margin:0}fieldset{margin:0;padding:0}legend{padding:0}menu,ol,ul{list-style:none;margin:0;padding:0}dialog{padding:0}textarea{resize:vertical}input::placeholder,textarea::placeholder{opacity:1;color:#9ca3af}[role=button],button{cursor:pointer}:disabled{cursor:default}audio,canvas,embed,iframe,img,object,svg,video{display:block;vertical-align:middle}img,video{max-width:100%;height:auto}[hidden]:where(:not([hidden=until-found])){display:none}.container{width:100%}@media (min-width: 640px){.container{max-width:640px}}@media (min-width: 768px){.container{max-width:768px}}@media (min-width: 1024px){.container{max-width:1024px}}@media (min-width: 1280px){.container{max-width:1280px}}@media (min-width: 1536px){.container{max-width:1536px}}.fixed{position:fixed}.absolute{position:absolute}.relative{position:relative}.inset-0{inset:0px}.bottom-0{bottom:0px}.bottom-4{bottom:1rem}.left-0{left:0px}.right-0{right:0px}.right-4{right:1rem}.top-0{top:0px}.z-10{z-index:10}.z-50{z-index:50}.mx-auto{margin-left:auto;margin-right:auto}.my-2{margin-top:0.5rem;margin-bottom:0.5rem}.mb-10{margin-bottom:2.5rem}.mb-16{margin-bottom:4rem}.mb-2{margin-bottom:0.5rem}.mb-4{margin-bottom:1rem}.mb-6{margin-bottom:1.5rem}.mb-8{margin-bottom:2rem}.ml-2{margin-left:0.5rem}.mr-2{margin-right:0.5rem}.mr-4{margin-right:1rem}.mt-16{margin-top:4rem}.mt-20{margin-top:5rem}.mt-6{margin-top:1.5rem}.mt-8{margin-top:2rem}.mb-1{margin-bottom:0.25rem}.mt-1{margin-top:0.25rem}.mt-12{margin-top:3rem}.block{display:block}.inline-block{display:inline-block}.flex{display:flex}.grid{display:grid}.hidden{display:none}.h-1{height:0.25rem}.h-10{height:2.5rem}.h-12{height:3rem}.h-16{height:4rem}.h-5{height:1.25rem}.h-8{height:2rem}.h-full{height:100%}.h-48{height:12rem}.h-6{height:1.5rem}.min-h-screen{min-height:100vh}.w-10{width:2.5rem}.w-12{width:3rem}.w-16{width:4rem}.w-24{width:6rem}.w-5{width:1.25rem}.w-8{width:2rem}.w-full{width:100%}.max-w-3xl{max-width:48rem}.max-w-4xl{max-width:56rem}.max-w-6xl{max-width:72rem}.translate-y-full{--tw-translate-y:100%;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.transform{transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.cursor-pointer{cursor:pointer}.grid-cols-1{grid-template-columns:repeat(1, minmax(0, 1fr))}.grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.flex-col{flex-direction:column}.items-start{align-items:flex-start}.items-end{align-items:flex-end}.items-center{align-items:center}.justify-center{justify-content:center}.justify-between{justify-content:space-between}.gap-12{gap:3rem}.gap-6{gap:1.5rem}.gap-8{gap:2rem}.space-x-2 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(0.5rem * var(--tw-space-x-reverse));margin-left:calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-4 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(1rem * var(--tw-space-x-reverse));margin-left:calc(1rem * calc(1 - var(--tw-space-x-reverse)))}.space-x-8 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(2rem * var(--tw-space-x-reverse));margin-left:calc(2rem * calc(1 - var(--tw-space-x-reverse)))}.space-y-2 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.5rem * var(--tw-space-y-reverse))}.space-y-3 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0.75rem * var(--tw-space-y-reverse))}.space-y-4 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1rem * var(--tw-space-y-reverse))}.space-y-6 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(1.5rem * var(--tw-space-y-reverse))}.space-x-6 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(1.5rem * var(--tw-space-x-reverse));margin-left:calc(1.5rem * calc(1 - var(--tw-space-x-reverse)))}.overflow-hidden{overflow:hidden}.whitespace-nowrap{white-space:nowrap}.rounded-button{border-radius:8px}.rounded-full{border-radius:9999px}.rounded-lg{border-radius:16px}.rounded-md{border-radius:12px}.rounded-l-md{border-top-left-radius:12px;border-bottom-left-radius:12px}.rounded-r-md{border-top-right-radius:12px;border-bottom-right-radius:12px}.border{border-width:1px}.border-2{border-width:2px}.border-b{border-bottom-width:1px}.border-t{border-top-width:1px}.border-none{border-style:none}.border-gray-700{--tw-border-opacity:1;border-color:rgb(55 65 81 / var(--tw-border-opacity, 1))}.border-gray-800{--tw-border-opacity:1;border-color:rgb(31 41 55 / var(--tw-border-opacity, 1))}.border-primary{--tw-border-opacity:1;border-color:rgb(255 215 0 / var(--tw-border-opacity, 1))}.border-gray-900{--tw-border-opacity:1;border-color:rgb(17 24 39 / var(--tw-border-opacity, 1))}.bg-black{--tw-bg-opacity:1;background-color:rgb(0 0 0 / var(--tw-bg-opacity, 1))}.bg-gray-900{--tw-bg-opacity:1;background-color:rgb(17 24 39 / var(--tw-bg-opacity, 1))}.bg-gray-950{--tw-bg-opacity:1;background-color:rgb(3 7 18 / var(--tw-bg-opacity, 1))}.bg-primary{--tw-bg-opacity:1;background-color:rgb(255 215 0 / var(--tw-bg-opacity, 1))}.bg-transparent{background-color:transparent}.bg-gray-800{--tw-bg-opacity:1;background-color:rgb(31 41 55 / var(--tw-bg-opacity, 1))}.bg-opacity-10{--tw-bg-opacity:0.1}.bg-opacity-30{--tw-bg-opacity:0.3}.bg-opacity-50{--tw-bg-opacity:0.5}.bg-opacity-60{--tw-bg-opacity:0.6}.bg-opacity-80{--tw-bg-opacity:0.8}.bg-opacity-90{--tw-bg-opacity:0.9}.bg-opacity-95{--tw-bg-opacity:0.95}.bg-gradient-to-t{background-image:linear-gradient(to top, var(--tw-gradient-stops))}.from-black\/80{--tw-gradient-from:rgb(0 0 0 / 0.8) var(--tw-gradient-from-position);--tw-gradient-to:rgb(0 0 0 / 0) var(--tw-gradient-to-position);--tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)}.to-transparent{--tw-gradient-to:transparent var(--tw-gradient-to-position)}.object-cover{object-fit:cover}.object-top{object-position:top}.p-2{padding:0.5rem}.p-4{padding:1rem}.p-6{padding:1.5rem}.p-8{padding:2rem}.px-4{padding-left:1rem;padding-right:1rem}.px-6{padding-left:1.5rem;padding-right:1.5rem}.px-8{padding-left:2rem;padding-right:2rem}.py-1{padding-top:0.25rem;padding-bottom:0.25rem}.py-2{padding-top:0.5rem;padding-bottom:0.5rem}.py-20{padding-top:5rem;padding-bottom:5rem}.py-3{padding-top:0.75rem;padding-bottom:0.75rem}.py-4{padding-top:1rem;padding-bottom:1rem}.py-12{padding-top:3rem;padding-bottom:3rem}.pt-16{padding-top:4rem}.pt-2{padding-top:0.5rem}.pt-8{padding-top:2rem}.text-center{text-align:center}.font-\[\'Pacifico\'\]{font-family:'Pacifico'}.text-2xl{font-size:1.5rem;line-height:2rem}.text-3xl{font-size:1.875rem;line-height:2.25rem}.text-4xl{font-size:2.25rem;line-height:2.5rem}.text-5xl{font-size:3rem;line-height:1}.text-sm{font-size:0.875rem;line-height:1.25rem}.text-xl{font-size:1.25rem;line-height:1.75rem}.text-xs{font-size:0.75rem;line-height:1rem}.text-lg{font-size:1.125rem;line-height:1.75rem}.font-bold{font-weight:700}.font-medium{font-weight:500}.font-semibold{font-weight:600}.text-black{--tw-text-opacity:1;color:rgb(0 0 0 / var(--tw-text-opacity, 1))}.text-gray-300{--tw-text-opacity:1;color:rgb(209 213 219 / var(--tw-text-opacity, 1))}.text-gray-400{--tw-text-opacity:1;color:rgb(156 163 175 / var(--tw-text-opacity, 1))}.text-primary{--tw-text-opacity:1;color:rgb(255 215 0 / var(--tw-text-opacity, 1))}.text-white{--tw-text-opacity:1;color:rgb(255 255 255 / var(--tw-text-opacity, 1))}.opacity-0{opacity:0}.shadow-lg{--tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);--tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)}.transition-all{transition-property:all;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-colors{transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-opacity{transition-property:opacity;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.transition-transform{transition-property:transform;transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);transition-duration:150ms}.duration-300{transition-duration:300ms}.hover\:-translate-y-1:hover{--tw-translate-y:-0.25rem;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.hover\:border-primary:hover{--tw-border-opacity:1;border-color:rgb(255 215 0 / var(--tw-border-opacity, 1))}.hover\:bg-primary:hover{--tw-bg-opacity:1;background-color:rgb(255 215 0 / var(--tw-bg-opacity, 1))}.hover\:bg-gray-800:hover{--tw-bg-opacity:1;background-color:rgb(31 41 55 / var(--tw-bg-opacity, 1))}.hover\:bg-opacity-10:hover{--tw-bg-opacity:0.1}.hover\:bg-opacity-90:hover{--tw-bg-opacity:0.9}.hover\:text-primary:hover{--tw-text-opacity:1;color:rgb(255 215 0 / var(--tw-text-opacity, 1))}.hover\:text-black:hover{--tw-text-opacity:1;color:rgb(0 0 0 / var(--tw-text-opacity, 1))}.focus\:outline-none:focus{outline:2px solid transparent;outline-offset:2px}.group:hover .group-hover\:block{display:block}.group:hover .group-hover\:translate-y-0{--tw-translate-y:0px;transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))}.group:hover .group-hover\:opacity-100{opacity:1}@media (min-width: 640px){.sm\:flex-row{flex-direction:row}.sm\:space-x-4 > :not([hidden]) ~ :not([hidden]){--tw-space-x-reverse:0;margin-right:calc(1rem * var(--tw-space-x-reverse));margin-left:calc(1rem * calc(1 - var(--tw-space-x-reverse)))}.sm\:space-y-0 > :not([hidden]) ~ :not([hidden]){--tw-space-y-reverse:0;margin-top:calc(0px * calc(1 - var(--tw-space-y-reverse)));margin-bottom:calc(0px * var(--tw-space-y-reverse))}}@media (min-width: 768px){.md\:mb-0{margin-bottom:0px}.md\:flex{display:flex}.md\:hidden{display:none}.md\:grid-cols-2{grid-template-columns:repeat(2, minmax(0, 1fr))}.md\:grid-cols-4{grid-template-columns:repeat(4, minmax(0, 1fr))}.md\:flex-row{flex-direction:row}.md\:text-2xl{font-size:1.5rem;line-height:2rem}.md\:text-7xl{font-size:4.5rem;line-height:1}}</style><link type="image/png" rel="icon" href="https://public.readdy.ai/gen_page/readdy-logo.png"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Secular+One&amp;display=swap"><style>.resizable-component[data-v-761d614a]{position:absolute}.resizable-component>.resizable-r[data-v-761d614a]{cursor:e-resize;height:100%;top:0;width:6px;z-index:90}.resizable-component>.resizable-r[data-v-761d614a],.resizable-component>.resizable-rb[data-v-761d614a]{display:block;position:absolute;right:-6px;touch-action:none;-ms-user-select:none;user-select:none;-moz-user-select:none;-webkit-user-select:none}.resizable-component>.resizable-rb[data-v-761d614a]{bottom:-6px;cursor:se-resize;height:12px;width:12px;z-index:91}.resizable-component>.resizable-b[data-v-761d614a]{cursor:s-resize;left:0;width:100%;z-index:90}.resizable-component>.resizable-b[data-v-761d614a],.resizable-component>.resizable-lb[data-v-761d614a]{bottom:-6px;display:block;height:12px;position:absolute;touch-action:none;-ms-user-select:none;user-select:none;-moz-user-select:none;-webkit-user-select:none}.resizable-component>.resizable-lb[data-v-761d614a]{cursor:sw-resize;left:-6px;width:12px;z-index:91}.resizable-component>.resizable-l[data-v-761d614a]{cursor:w-resize;height:100%;top:0;z-index:90}.resizable-component>.resizable-l[data-v-761d614a],.resizable-component>.resizable-lt[data-v-761d614a]{display:block;left:-6px;position:absolute;touch-action:none;-ms-user-select:none;user-select:none;-moz-user-select:none;-webkit-user-select:none;width:12px}.resizable-component>.resizable-lt[data-v-761d614a]{cursor:nw-resize;height:12px;top:-6px;z-index:91}.resizable-component>.resizable-t[data-v-761d614a]{cursor:n-resize;left:0;width:100%;z-index:90}.resizable-component>.resizable-rt[data-v-761d614a],.resizable-component>.resizable-t[data-v-761d614a]{display:block;height:12px;position:absolute;top:-6px;touch-action:none;-ms-user-select:none;user-select:none;-moz-user-select:none;-webkit-user-select:none}.resizable-component>.resizable-rt[data-v-761d614a]{cursor:ne-resize;right:-6px;width:12px;z-index:91}</style><style>.it-language-settings{--it-lang-settings-bg:#c7ccd1;--it-lang-settings-btn-rad:15px;--it-lang-settings-cnt-rad:16px;border-radius:999rem;display:flex;font-size:13px;height:32px;min-width:240px;position:relative}.it-language-settings>main{margin-left:4px}.it-language-settings>.it-btn,.it-language-settings>section .it-btn{height:32px}.it-language-settings>section{background-color:var(--it-lang-settings-bg);flex-grow:1;margin-left:4px;margin-top:2px;padding:0 1px;position:relative;width:50%}.it-language-settings>section[aria-current=false]{border-radius:var(--it-lang-settings-cnt-rad) var(--it-lang-settings-cnt-rad) 0 0}.it-language-settings>section>label{background:var(--it-lang-settings-bg);color:inherit;font-size:8px;font-weight:600;left:0;letter-spacing:.01em;line-height:1.2;margin:0;padding:3px 5px 2px;position:absolute;text-align:center;text-transform:uppercase;top:100%}.it-language-settings>section .it-btn,.it-language-settings>section>label{border-radius:0 0 var(--it-lang-settings-btn-rad) var(--it-lang-settings-btn-rad);width:100%}.it-language-settings>section .it-btn{box-shadow:none;font-size:13px;margin:0!important}.it-language-settings>section .it-btn:last-child{border-radius:var(--it-lang-settings-btn-rad)}.it-language-settings>section .it-btn>svg{--it-btn-icon-size:16px;position:absolute;right:5px;top:50%;transform:translateY(-50%)}.it-language-settings>section>div[role=dialog]{background:var(--it-lang-settings-bg);border-radius:var(--it-lang-settings-cnt-rad) var(--it-lang-settings-cnt-rad) 0 0;bottom:100%;display:flex;flex-direction:column;left:0;padding:1px 1px 0;position:absolute;width:100%;z-index:1000}.it-language-settings>section>div[role=dialog]>.it-btn{border-radius:0}.it-language-settings>section>div[role=dialog]>.it-btn:first-child{border-radius:var(--it-lang-settings-btn-rad) var(--it-lang-settings-btn-rad) 0 0}</style><style>:root{--it-color-primary:#3d81d1;--it-color-primary-darker:#316bae;--it-color-white:#fff;--it-color-gray-200:#eff2f7;--it-color-gray-800:#3c4858;--it-color-green:#5cb945;--it-color-red:#e2757a;--it-color-text:#2e3238;--it-color-contrast-low:var(--it-color-gray-200);--it-color-contrast-medium:var(--it-color-gray-800);--it-color-bg-change-highlight:#3d81d126;--it-radius:.3em;--it-radius-md:var(--it-radius,0.25em);--it-font-primary:"Inter",sans-serif;--it-font-size-base:15px;--it-top-toolbar-height:44px;--it-bottom-toolbar-height:50px;--it-space-unit:17px;--it-space-xxxxs:calc(var(--it-space-unit)*0.125);--it-space-xxxs:calc(var(--it-space-unit)*0.25);--it-space-xxs:calc(var(--it-space-unit)*0.375);--it-space-xs:calc(var(--it-space-unit)*0.5);--it-space-sm:calc(var(--it-space-unit)*0.75);--it-space-md:calc(var(--it-space-unit)*1.25);--it-space-lg:calc(var(--it-space-unit)*2);--it-space-xl:calc(var(--it-space-unit)*3.25);--it-space-xxl:calc(var(--it-space-unit)*5.25);--it-space-xxxl:calc(var(--it-space-unit)*8.5);--it-space-xxxxl:calc(var(--it-space-unit)*13.75);--it-scrollbar-width:6px;--it-shadow-xs:0 0.1px 0.3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.12);--it-shadow-sm:0 0.3px 0.4px rgba(0,0,0,.025),0 0.9px 1.5px rgba(0,0,0,.05),0 3.5px 6px rgba(0,0,0,.1);--it-shadow-md:0 0.9px 1.5px rgba(0,0,0,.03),0 3.1px 5.5px rgba(0,0,0,.08),0 14px 25px rgba(0,0,0,.12);--it-shadow-lg:0 1.2px 1.9px -1px rgba(0,0,0,.014),0 3.3px 5.3px -1px rgba(0,0,0,.038),0 8.5px 12.7px -1px rgba(0,0,0,.085),0 30px 42px -1px rgba(0,0,0,.15);--it-shadow-xl:0 1.5px 2.1px -6px rgba(0,0,0,.012),0 3.6px 5.2px -6px rgba(0,0,0,.035),0 7.3px 10.6px -6px rgba(0,0,0,.07),0 16.2px 21.9px -6px rgba(0,0,0,.117),0 46px 60px -6px rgba(0,0,0,.2)}.it-btn,a.it-btn{--it-btn-padding-x:var(--it-space-sm);--it-btn-padding-y:var(--it-space-xxs);--it-btn-radius:999em;--it-btn-icon-size:18px;--it-btn-color:#fff;-webkit-font-smoothing:antialiased;align-items:center;-webkit-appearance:none;-moz-appearance:none;appearance:none;background-color:var(--it-color-primary);background-image:none;border:0;border:2px solid var(--it-color-primary);border-radius:0;border-radius:var(--it-btn-radius);box-shadow:none;color:#fff;cursor:pointer;display:inline-flex;font-size:14px;font-weight:400;font-weight:500;height:auto;justify-content:center;line-height:normal;margin:0;padding:var(--it-btn-padding-y) var(--it-btn-padding-x);position:relative;text-align:center;text-decoration:none;transition:background-color .18s ease,color .18s ease,border-color .18s ease,transform .1s;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;vertical-align:middle;white-space:nowrap;width:auto}.it-btn:disabled,a.it-btn:disabled{opacity:.6;pointer-events:none}.it-btn.it-btn-outline,a.it-btn.it-btn-outline{background-color:transparent;color:var(--it-color-primary)}.it-btn:active,a.it-btn:active{transform:scale(.95)}.it-btn.hover,.it-btn.it-btn-outline.hover,.it-btn.it-btn-outline:active,.it-btn.it-btn-outline:hover,.it-btn:active,.it-btn:hover,a.it-btn.hover,a.it-btn.it-btn-outline.hover,a.it-btn.it-btn-outline:active,a.it-btn.it-btn-outline:hover,a.it-btn:active,a.it-btn:hover{background-color:var(--it-color-primary-darker);border-color:var(--it-color-primary-darker);color:#fff;text-decoration:none}.it-btn>mark,a.it-btn>mark{align-items:center;background:#273444!important;border-radius:2px;bottom:100%;color:var(--it-btn-color);cursor:pointer;font-size:13px;font-style:normal;font-weight:400;left:50%;line-height:1.5;margin:0;padding:3px 8px;pointer-events:none;position:absolute;transform:translate(-50%);transition:visibility 0s;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;visibility:hidden;z-index:9999}.it-btn>mark:after,a.it-btn>mark:after{border:4px solid rgba(136,183,213,0);border-top-color:#273444;content:"";height:0;left:50%;margin-left:-4px;pointer-events:none;position:absolute;top:100%;width:0}.it-btn.hover>mark,.it-btn:active>mark,.it-btn:hover>mark,a.it-btn.hover>mark,a.it-btn:active>mark,a.it-btn:hover>mark{transition-delay:1s;visibility:visible}.it-btn.it-btn-wide,a.it-btn.it-btn-wide{padding-left:calc(var(--it-btn-padding-x)*2);padding-right:calc(var(--it-btn-padding-x)*2)}.it-btn-group .it-btn{background-color:#fff;border-color:rgba(0,0,0,.12);border-width:1px;box-shadow:var(--it-shadow-sm);color:var(--it-color-contrast-medium);font-size:16px;height:36px;padding:8px}.it-btn-group .it-btn.it-btn-sm{font-size:13px;height:30px;padding:6px 10px}.it-btn-group .it-btn.it-btn-primary{background-color:var(--it-color-primary);border-color:var(--it-color-primary);color:var(--it-color-white);font-weight:500;padding:8px 16px}.it-btn-group .it-btn.it-btn-primary.hover,.it-btn-group .it-btn.it-btn-primary:active,.it-btn-group .it-btn.it-btn-primary:hover{background-color:var(--it-color-primary-darker);border-color:var(--it-color-primary-darker);color:var(--it-color-white)}.it-btn-group .it-btn:not(:first-child){margin-left:5px}[dir=rtl] .it-btn-group .it-btn:not(:first-child){margin-left:0;margin-right:5px}.it-btn-group .it-btn.hover,.it-btn-group .it-btn:active,.it-btn-group .it-btn:hover{background-color:#dee3ef;color:#2e72c2}.it-btn-group .it-btn.hover>svg use,.it-btn-group .it-btn:active>svg use,.it-btn-group .it-btn:hover>svg use{fill:#2e72c2}.it-btn-group-inline{align-items:center;display:inline-flex;position:relative;vertical-align:middle}.it-btn-group-inline .it-btn{background-color:rgba(229,233,242,0);border-color:rgba(229,233,242,.5);border-width:0;display:inline-flex;padding:6px}.it-btn-group-inline .it-btn.hover,.it-btn-group-inline .it-btn:active,.it-btn-group-inline .it-btn:hover{background-color:rgba(222,227,239,.5);border-color:rgba(222,227,239,.5)}.it-btn-group-inline .it-btn.hover>mark,.it-btn-group-inline .it-btn:active>mark,.it-btn-group-inline .it-btn:hover>mark{transition-delay:1s;visibility:visible}.it-btn-group-inline .it-btn.hover>svg use,.it-btn-group-inline .it-btn:active>svg use,.it-btn-group-inline .it-btn:hover>svg use{fill:#2e72c2}.it-btn-group-inline .it-btn:not(:first-child){margin-left:2px}[dir=rtl] .it-btn-group-inline .it-btn:not(:first-child){margin-left:0;margin-right:2px}.it-btn-group-inline .it-btn>svg,.it-btn-group .it-btn>svg{height:var(--it-btn-icon-size);max-width:none;width:var(--it-btn-icon-size)}.it-btn-group-inline .it-btn>svg:first-child+span,.it-btn-group .it-btn>svg:first-child+span{margin-left:4px}[dir=rtl] .it-btn-group-inline .it-btn>svg:first-child+span,[dir=rtl] .it-btn-group .it-btn>svg:first-child+span{margin-left:0;margin-right:4px}.it-btn-group-inline .it-btn>svg use,.it-btn-group .it-btn>svg use{fill:var(--it-color-contrast-medium)}.it-margin-bottom-base{margin-bottom:var(--it-space-unit)}.it-margin-bottom-sm{margin-bottom:var(--it-space-sm)}.it-margin-bottom-lg,.it-margin-bottom-md{margin-bottom:var(--it-space-md)}.it-margin-top-base{margin-top:var(--it-space-unit)}.it-margin-top-sm{margin-top:var(--it-space-sm)}.it-margin-top-lg,.it-margin-top-md{margin-top:var(--it-space-md)}.it-text-link{color:var(--it-color-primary);cursor:pointer;font-weight:600;text-decoration:none;transition:color .2s}.it-text-link:active,.it-text-link:hover{color:var(--it-color-primary-darker)}:root{--it-editor-width:clamp(28rem,30vw,36rem);--it-editor-height:clamp(14rem,35vh,24rem);--it-editor-padding-top:calc(0.5rem + var(--it-top-toolbar-height));--it-editor-padding-bottom:calc(0.5rem + var(--it-bottom-toolbar-height)*0.5);--it-editor-padding-left:clamp(24px,3%,100px);--it-editor-padding-right:var(--it-editor-padding-left);--it-editor-msg-bottom-padding:10px;--it-editor-color-bg:var(--it-color-white);--it-editor-color-bg-semi-transparent:hsla(0,0%,100%,.9);--it-editor-color-scrollbar-bg:#ddd;--it-editor-added-bg:rgba(92,185,69,.1);--it-editor-added:#5cb945;--it-editor-removed:#cc3434}.it-editor,.it-editor-wrapper{display:flex}.it-editor{background-color:var(--it-editor-color-bg);border:2px solid var(--it-color-primary);border-radius:var(--it-radius);box-shadow:var(--it-shadow-lg);color:var(--it-color-text);flex-direction:column;font-size:var(--it-font-size-base);height:100%;margin-left:auto;margin-top:auto;outline:none;position:relative;transition:width .15s,height .15s,border-color .25s;width:100%}[dir=rtl] .it-editor{margin-left:0;margin-right:auto}.it-editor .it-reqs{display:flex;flex-wrap:wrap;font-size:12px;justify-content:space-between;justify-content:flex-end;margin-right:8px;text-align:right}[dir=rtl] .it-editor .it-reqs{margin-left:8px;margin-right:0}.it-editor .it-reqs>a{margin-left:5px}[dir=rtl] .it-editor .it-reqs>a{margin-left:0;margin-right:5px}.it-editor.it-editor-loading{height:calc(90px + var(--it-editor-msg-bottom-padding));width:320px}.it-editor.it-editor-error{width:320px}.it-editor.it-editor-error.it-editor-error-lg{height:auto;width:350px}.it-editor .it-limit-notice{font-size:13px;padding:10px 20px 20px}.it-editor .it-limit-notice h3{font-size:16px;font-weight:500}.it-editor .it-limit-notice>div{margin-top:12px}.it-editor .it-limit-notice svg{height:auto;margin-bottom:12px;max-width:90px}.it-editor ::-webkit-scrollbar{height:var(--it-scrollbar-width);width:var(--it-scrollbar-width);z-index:99999999}.it-editor ::-webkit-scrollbar-track,.it-editor :hover::-webkit-scrollbar-track{background:var(--it-editor-color-scrollbar-bg)}.it-editor ::-webkit-scrollbar-thumb{background:var(--it-color-primary)}.it-editor ::-webkit-scrollbar-thumb:active,.it-editor ::-webkit-scrollbar-thumb:hover{background:var(--it-color-primary-darker);cursor:-webkit-grab;cursor:grab}.it-editor .noTextDiff span mark{display:none!important}.it-editor .noTextDiff span.api-removed{display:none}.it-editor .noTextDiff span.api-added{background-color:transparent;color:inherit}.it-editor *{font-family:var(--it-font-primary)!important}.it-editor pre{border:0;box-sizing:border-box;flex:1;font-family:inherit!important;font-size:16px;line-height:1.7;margin:0;max-height:100%;outline:none;overflow-x:hidden;overflow-y:scroll;padding:var(--it-editor-padding-top) var(--it-editor-padding-right) var(--it-editor-padding-bottom) var(--it-editor-padding-left);white-space:pre-wrap;width:100%}.it-editor pre span.original>mark{display:none}.it-editor pre span.api-added,.it-editor pre span.api-removed{position:relative}.it-editor pre span.api-added>*,.it-editor pre span.api-removed>*{display:inline-block;position:relative}.it-editor pre span.api-added>*>mark,.it-editor pre span.api-removed>*>mark{align-items:center;border-radius:2px;bottom:100%;box-shadow:var(--it-shadow-md);cursor:pointer;display:flex;left:50%;line-height:1.5;margin:0;padding:0;position:absolute;transform:translate(-50%);-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;white-space:nowrap;z-index:9999}.it-editor pre span.api-added>*>mark .accept-icon,.it-editor pre span.api-added>*>mark .reject-icon,.it-editor pre span.api-removed>*>mark .accept-icon,.it-editor pre span.api-removed>*>mark .reject-icon{align-items:center;background:var(--it-editor-color-bg);border-radius:2px;display:inline-flex;padding:4px 8px;position:relative}.it-editor pre span.api-added>*>mark .accept-icon.hover,.it-editor pre span.api-added>*>mark .accept-icon:hover,.it-editor pre span.api-added>*>mark .reject-icon.hover,.it-editor pre span.api-added>*>mark .reject-icon:hover,.it-editor pre span.api-removed>*>mark .accept-icon.hover,.it-editor pre span.api-removed>*>mark .accept-icon:hover,.it-editor pre span.api-removed>*>mark .reject-icon.hover,.it-editor pre span.api-removed>*>mark .reject-icon:hover{background-color:var(--it-color-contrast-low)}.it-editor pre span.api-added>*>mark .accept-icon svg,.it-editor pre span.api-added>*>mark .reject-icon svg,.it-editor pre span.api-removed>*>mark .accept-icon svg,.it-editor pre span.api-removed>*>mark .reject-icon svg{height:22px;max-width:none;pointer-events:none;width:22px}.it-editor pre span.api-added>*>mark .accept-icon svg use,.it-editor pre span.api-added>*>mark .reject-icon svg use,.it-editor pre span.api-removed>*>mark .accept-icon svg use,.it-editor pre span.api-removed>*>mark .reject-icon svg use{fill:var(--it-color-primary)}.it-editor pre span.api-added>*>mark .reject-icon,.it-editor pre span.api-removed>*>mark .reject-icon{border-bottom-left-radius:0;border-left:1px solid var(--it-color-contrast-low);border-top-left-radius:0}.it-editor pre span.api-added>*>mark .accept-icon,.it-editor pre span.api-removed>*>mark .accept-icon{border-bottom-right-radius:0;border-top-right-radius:0}.it-editor pre span.api-added>*>mark>i,.it-editor pre span.api-removed>*>mark>i{font-size:16px;margin-left:3px}.it-editor pre span.api-added>*>mark:after,.it-editor pre span.api-removed>*>mark:after{border:4px solid transparent;border-top:4px solid var(--it-color-contrast-medium);content:"";height:0;left:50%;margin-left:-4px;pointer-events:none;position:absolute;top:100%;width:0}.it-editor pre span.api-added.active,.it-editor pre span.api-removed.active{background-color:var(--it-color-bg-change-highlight)}.it-editor pre span.api-added{background-color:var(--it-editor-added-bg);border-bottom:2px solid var(--it-editor-added);line-height:1.15;position:relative}.it-editor pre span.api-removed{position:relative;text-decoration:line-through}.it-editor pre span.api-removed:before{content:"";pointer-events:none}.it-editor pre span.api-removed.selected>span{background-color:var(--it-web-selection-color)}.it-editor pre span.api-removed>span.word{display:inline}.it-editor pre span.api-removed+span:not(.it-ss){margin-left:4px}.it-editor pre span.api-removed>span:after{color:var(--it-editor-removed);content:attr(data-removedtext);pointer-events:none;text-decoration:line-through}.it-editor pre span.api-added:not(.it-es)+span.api-removed:not(.it-noss),.it-editor pre span.original:not(.it-es)+span.api-removed:not(.it-noss){margin-left:4px}.it-editor .it-editor-top-toolbar{background-image:linear-gradient(to bottom,var(--it-editor-color-bg) 50%,transparent 100%);border-top-left-radius:var(--it-radius);border-top-right-radius:var(--it-radius);height:var(--it-top-toolbar-height);padding:10px 16px 5px;top:0;z-index:99}.it-editor .it-editor-bottom-toolbar{bottom:0;height:var(--it-bottom-toolbar-height);padding:10px 16px;transform:translateY(50%)}.it-editor .it-editor-bottom-toolbar,.it-editor .it-editor-bottom-toolbar:before{border-bottom-left-radius:var(--it-radius);border-bottom-right-radius:var(--it-radius)}.it-editor .it-editor-bottom-toolbar:before{background-image:linear-gradient(to top,var(--it-editor-color-bg) 15%,transparent 100%);content:"";height:80%;left:0;position:absolute;top:10%;transform:translateY(-50%);width:100%}.it-editor .it-editor-error-msg,.it-editor .it-editor-loader{align-items:center;display:flex;font-size:14px;height:100%;justify-content:center;padding:1.2rem;pointer-events:none;position:relative;text-align:center;width:100%;z-index:100}.it-editor .it-editor-error-msg>svg,.it-editor .it-editor-loader>svg{margin-right:10px}[dir=rtl] .it-editor .it-editor-error-msg>svg,[dir=rtl] .it-editor .it-editor-loader>svg{margin-left:10px;margin-right:0}.it-editor .it-editor-error-msg{padding:1.2rem 1.2rem calc(1.2rem + var(--it-editor-msg-bottom-padding))}.it-pointer-events-all{pointer-events:all!important}.it-editor-toolbar{display:flex;justify-content:space-between;left:0;position:absolute;right:var(--it-scrollbar-width);z-index:100}[dir=rtl] .it-editor-toolbar{left:var(--it-scrollbar-width);right:0}.it-editor-close-warning,.it-editor-toolbar .it-editor-drag{height:100%;left:0;position:absolute;top:0;width:100%}.it-editor-close-warning{align-items:center;background-color:var(--it-editor-color-bg-semi-transparent);border-radius:var(--it-radius);display:flex;justify-content:center;overflow:hidden;text-align:center;z-index:100}.it-editor-close-warning .it-editor-drag{height:100%;left:0;position:absolute;top:0;width:100%}</style><style>:root{--it-color-primary:#3d81d1;--it-color-primary-darker:#316bae;--it-color-white:#fff;--it-color-gray-200:#eff2f7;--it-color-gray-800:#3c4858;--it-color-green:#5cb945;--it-color-red:#e2757a;--it-color-text:#2e3238;--it-color-contrast-low:var(--it-color-gray-200);--it-color-contrast-medium:var(--it-color-gray-800);--it-color-bg-change-highlight:#3d81d126;--it-radius:.3em;--it-radius-md:var(--it-radius,0.25em);--it-font-primary:"Inter",sans-serif;--it-font-size-base:15px;--it-top-toolbar-height:44px;--it-bottom-toolbar-height:50px;--it-space-unit:17px;--it-space-xxxxs:calc(var(--it-space-unit)*0.125);--it-space-xxxs:calc(var(--it-space-unit)*0.25);--it-space-xxs:calc(var(--it-space-unit)*0.375);--it-space-xs:calc(var(--it-space-unit)*0.5);--it-space-sm:calc(var(--it-space-unit)*0.75);--it-space-md:calc(var(--it-space-unit)*1.25);--it-space-lg:calc(var(--it-space-unit)*2);--it-space-xl:calc(var(--it-space-unit)*3.25);--it-space-xxl:calc(var(--it-space-unit)*5.25);--it-space-xxxl:calc(var(--it-space-unit)*8.5);--it-space-xxxxl:calc(var(--it-space-unit)*13.75);--it-scrollbar-width:6px;--it-shadow-xs:0 0.1px 0.3px rgba(0,0,0,.06),0 1px 2px rgba(0,0,0,.12);--it-shadow-sm:0 0.3px 0.4px rgba(0,0,0,.025),0 0.9px 1.5px rgba(0,0,0,.05),0 3.5px 6px rgba(0,0,0,.1);--it-shadow-md:0 0.9px 1.5px rgba(0,0,0,.03),0 3.1px 5.5px rgba(0,0,0,.08),0 14px 25px rgba(0,0,0,.12);--it-shadow-lg:0 1.2px 1.9px -1px rgba(0,0,0,.014),0 3.3px 5.3px -1px rgba(0,0,0,.038),0 8.5px 12.7px -1px rgba(0,0,0,.085),0 30px 42px -1px rgba(0,0,0,.15);--it-shadow-xl:0 1.5px 2.1px -6px rgba(0,0,0,.012),0 3.6px 5.2px -6px rgba(0,0,0,.035),0 7.3px 10.6px -6px rgba(0,0,0,.07),0 16.2px 21.9px -6px rgba(0,0,0,.117),0 46px 60px -6px rgba(0,0,0,.2)}.it-btn,a.it-btn{--it-btn-padding-x:var(--it-space-sm);--it-btn-padding-y:var(--it-space-xxs);--it-btn-radius:999em;--it-btn-icon-size:18px;--it-btn-color:#fff;-webkit-font-smoothing:antialiased;align-items:center;-webkit-appearance:none;-moz-appearance:none;appearance:none;background-color:var(--it-color-primary);background-image:none;border:0;border:2px solid var(--it-color-primary);border-radius:0;border-radius:var(--it-btn-radius);box-shadow:none;color:#fff;cursor:pointer;display:inline-flex;font-size:14px;font-weight:400;font-weight:500;height:auto;justify-content:center;line-height:normal;margin:0;padding:var(--it-btn-padding-y) var(--it-btn-padding-x);position:relative;text-align:center;text-decoration:none;transition:background-color .18s ease,color .18s ease,border-color .18s ease,transform .1s;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;vertical-align:middle;white-space:nowrap;width:auto}.it-btn:disabled,a.it-btn:disabled{opacity:.6;pointer-events:none}.it-btn.it-btn-outline,a.it-btn.it-btn-outline{background-color:transparent;color:var(--it-color-primary)}.it-btn:active,a.it-btn:active{transform:scale(.95)}.it-btn.hover,.it-btn.it-btn-outline.hover,.it-btn.it-btn-outline:active,.it-btn.it-btn-outline:hover,.it-btn:active,.it-btn:hover,a.it-btn.hover,a.it-btn.it-btn-outline.hover,a.it-btn.it-btn-outline:active,a.it-btn.it-btn-outline:hover,a.it-btn:active,a.it-btn:hover{background-color:var(--it-color-primary-darker);border-color:var(--it-color-primary-darker);color:#fff;text-decoration:none}.it-btn>mark,a.it-btn>mark{align-items:center;background:#273444!important;border-radius:2px;bottom:100%;color:var(--it-btn-color);cursor:pointer;font-size:13px;font-style:normal;font-weight:400;left:50%;line-height:1.5;margin:0;padding:3px 8px;pointer-events:none;position:absolute;transform:translate(-50%);transition:visibility 0s;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;visibility:hidden;z-index:9999}.it-btn>mark:after,a.it-btn>mark:after{border:4px solid rgba(136,183,213,0);border-top-color:#273444;content:"";height:0;left:50%;margin-left:-4px;pointer-events:none;position:absolute;top:100%;width:0}.it-btn.hover>mark,.it-btn:active>mark,.it-btn:hover>mark,a.it-btn.hover>mark,a.it-btn:active>mark,a.it-btn:hover>mark{transition-delay:1s;visibility:visible}.it-btn.it-btn-wide,a.it-btn.it-btn-wide{padding-left:calc(var(--it-btn-padding-x)*2);padding-right:calc(var(--it-btn-padding-x)*2)}.it-btn-group .it-btn{background-color:#fff;border-color:rgba(0,0,0,.12);border-width:1px;box-shadow:var(--it-shadow-sm);color:var(--it-color-contrast-medium);font-size:16px;height:36px;padding:8px}.it-btn-group .it-btn.it-btn-sm{font-size:13px;height:30px;padding:6px 10px}.it-btn-group .it-btn.it-btn-primary{background-color:var(--it-color-primary);border-color:var(--it-color-primary);color:var(--it-color-white);font-weight:500;padding:8px 16px}.it-btn-group .it-btn.it-btn-primary.hover,.it-btn-group .it-btn.it-btn-primary:active,.it-btn-group .it-btn.it-btn-primary:hover{background-color:var(--it-color-primary-darker);border-color:var(--it-color-primary-darker);color:var(--it-color-white)}.it-btn-group .it-btn:not(:first-child){margin-left:5px}[dir=rtl] .it-btn-group .it-btn:not(:first-child){margin-left:0;margin-right:5px}.it-btn-group .it-btn.hover,.it-btn-group .it-btn:active,.it-btn-group .it-btn:hover{background-color:#dee3ef;color:#2e72c2}.it-btn-group .it-btn.hover>svg use,.it-btn-group .it-btn:active>svg use,.it-btn-group .it-btn:hover>svg use{fill:#2e72c2}.it-btn-group-inline{align-items:center;display:inline-flex;position:relative;vertical-align:middle}.it-btn-group-inline .it-btn{background-color:rgba(229,233,242,0);border-color:rgba(229,233,242,.5);border-width:0;display:inline-flex;padding:6px}.it-btn-group-inline .it-btn.hover,.it-btn-group-inline .it-btn:active,.it-btn-group-inline .it-btn:hover{background-color:rgba(222,227,239,.5);border-color:rgba(222,227,239,.5)}.it-btn-group-inline .it-btn.hover>mark,.it-btn-group-inline .it-btn:active>mark,.it-btn-group-inline .it-btn:hover>mark{transition-delay:1s;visibility:visible}.it-btn-group-inline .it-btn.hover>svg use,.it-btn-group-inline .it-btn:active>svg use,.it-btn-group-inline .it-btn:hover>svg use{fill:#2e72c2}.it-btn-group-inline .it-btn:not(:first-child){margin-left:2px}[dir=rtl] .it-btn-group-inline .it-btn:not(:first-child){margin-left:0;margin-right:2px}.it-btn-group-inline .it-btn>svg,.it-btn-group .it-btn>svg{height:var(--it-btn-icon-size);max-width:none;width:var(--it-btn-icon-size)}.it-btn-group-inline .it-btn>svg:first-child+span,.it-btn-group .it-btn>svg:first-child+span{margin-left:4px}[dir=rtl] .it-btn-group-inline .it-btn>svg:first-child+span,[dir=rtl] .it-btn-group .it-btn>svg:first-child+span{margin-left:0;margin-right:4px}.it-btn-group-inline .it-btn>svg use,.it-btn-group .it-btn>svg use{fill:var(--it-color-contrast-medium)}.it-margin-bottom-base{margin-bottom:var(--it-space-unit)}.it-margin-bottom-sm{margin-bottom:var(--it-space-sm)}.it-margin-bottom-lg,.it-margin-bottom-md{margin-bottom:var(--it-space-md)}.it-margin-top-base{margin-top:var(--it-space-unit)}.it-margin-top-sm{margin-top:var(--it-space-sm)}.it-margin-top-lg,.it-margin-top-md{margin-top:var(--it-space-md)}.it-text-link{color:var(--it-color-primary);cursor:pointer;font-weight:600;text-decoration:none;transition:color .2s}.it-text-link:active,.it-text-link:hover{color:var(--it-color-primary-darker)}.it-editor.it-editor-onboarding{--it-editor-onboarding-list-bullet-size:20px;bottom:48px;font-size:14px;font-weight:500;height:auto;padding:20px;position:absolute;right:32px;width:315px}.it-editor.it-editor-onboarding .it-editor-bottom-toolbar:before{display:none}.it-editor.it-editor-onboarding>main>p{margin-bottom:10px;margin-top:20px;text-align:center}.it-editor.it-editor-onboarding>main>p>span{border:1px solid #ccc;border-radius:6px;font-weight:700;margin:0 2px;padding:3px 5px}.it-editor.it-editor-onboarding header{border-bottom:1px solid #ddd;display:flex;margin-bottom:12px;padding-bottom:12px}.it-editor.it-editor-onboarding header h3{font-size:1.15em;margin:0}.it-editor.it-editor-onboarding header p{margin:3px 0 0}.it-editor.it-editor-onboarding header div:first-child{min-width:calc(var(--it-editor-onboarding-list-bullet-size)*1.5)}.it-editor.it-editor-onboarding header div:first-child svg{height:24px;width:24px}.it-editor-onboarding-list{counter-reset:item;font-size:.95em;margin-left:0;padding-left:0}.it-editor-onboarding-list li{align-items:center;display:flex;margin-bottom:8px}.it-editor-onboarding-list li:before{align-items:center;background-color:#4b5058;border-radius:999rem;color:#f4f4f6;content:counter(item);counter-increment:item;display:inline-flex;font-size:.9em;font-weight:600;height:var(--it-editor-onboarding-list-bullet-size);justify-content:center;margin-right:calc(var(--it-editor-onboarding-list-bullet-size)*.5);min-width:var(--it-editor-onboarding-list-bullet-size)}</style><style>@import url(https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap);</style><style>#it-editor{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;bottom:2rem;left:1rem;pointer-events:none;position:fixed;right:1rem;top:1rem;z-index:9999999}#it-editor>div{height:100%;pointer-events:none;width:100%}#it-editor>div>*{pointer-events:all}#it-editor *{box-sizing:border-box}#it-editor h1,#it-editor h2,#it-editor h3,#it-editor h4{font-weight:500}#it-editor .it-pointer-events-none{pointer-events:none}.fadeup-enter-active,.fadeup-leave-active{transform:translateY(0);transition:opacity .1s ease,transform .1s}.fadeup-enter-from,.fadeup-leave-to{opacity:0;transform:translateY(1rem)}.fade-enter-active,.fade-leave-active{transition:opacity .1s}.fade-enter-from,.fade-leave-to{opacity:0}</style></head><body class="circuit-bg min-h-screen"><audio id="bgMusic" loop="">
+    <source src="https://cdn.pixabay.com/download/audio/2022/02/22/audio_d1718ab41b.mp3" type="audio/mpeg">
+</audio>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link href="https://fonts.googleapis.com/css2?family=Pacifico&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
-
-  .bloco-pix {
-    font-family: 'Press Start 2P', cursive;
-    background: linear-gradient(135deg, #007BFF, #00C6FF);
-    color: white;
-    padding: 25px;
-    border-radius: 15px;
-    text-align: center;
-    width: 320px;
-    margin: 80px auto;
-    box-shadow: 0 0 20px #00f, 0 0 40px #0ff;
-    border: 2px dashed #fff;
-  }
-
-  .bloco-pix h3 {
-    font-size: 14px;
-    margin-bottom: 10px;
-  }
-
-  .bloco-pix p {
-    font-size: 12px;
-    word-break: break-word;
-    background: #000;
-    padding: 10px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    border: 1px solid #0ff;
-  }
-
-  .pix-symbol {
-    font-size: 24px;
-    background: #0c9bb6;
-    padding: 10px 20px;
-    border-radius: 10px;
-    display: inline-block;
-    color: #fff;
-    box-shadow: 0 0 10px #0ff;
-    transition: transform 0.2s, box-shadow 0.3s;
-    cursor: pointer;
-  }
-
-  .pix-symbol:hover {
-    transform: scale(1.1);
-    box-shadow: 0 0 20px #0ff;
-  }
-
-  /* Modal (corrigido) */
-  .modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 50, 0.9);
-    justify-content: center;
-    align-items: center;
-    z-index: 999;
-  }
-
-  .modal.show {
-    display: flex;
-  }
-
-  .modal img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 12px;
-    box-shadow: 0 0 25px #00f, 0 0 50px #0ff;
-  }
+:where([class^="ri-"])::before { content: "\f3c2"; }
+body {
+font-family: 'Inter', sans-serif;
+background-color: #000000;
+color: #ffffff;
+}
+.circuit-bg {
+background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23FFD700' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E");
+}
+.glow {
+text-shadow: 0 0 10px rgba(255, 215, 0, 0.7), 0 0 20px rgba(255, 215, 0, 0.5), 0 0 30px rgba(255, 215, 0, 0.3);
+}
+.glow-border {
+box-shadow: 0 0 5px rgba(255, 215, 0, 0.5), 0 0 10px rgba(255, 215, 0, 0.3);
+}
+.nav-link {
+position: relative;
+}
+.nav-link::after {
+content: '';
+position: absolute;
+width: 0;
+height: 2px;
+bottom: -2px;
+left: 0;
+background-color: #FFD700;
+transition: width 0.3s ease;
+}
+.nav-link:hover::after {
+width: 100%;
+}
+.nav-link.active::after {
+width: 100%;
+}
+.custom-checkbox {
+appearance: none;
+width: 20px;
+height: 20px;
+border: 2px solid #FFD700;
+border-radius: 4px;
+background-color: transparent;
+display: inline-block;
+position: relative;
+cursor: pointer;
+}
+.custom-checkbox:checked {
+background-color: #FFD700;
+}
+.custom-checkbox:checked::after {
+content: '';
+position: absolute;
+left: 6px;
+top: 2px;
+width: 5px;
+height: 10px;
+border: solid black;
+border-width: 0 2px 2px 0;
+transform: rotate(45deg);
+}
+.custom-radio {
+appearance: none;
+width: 20px;
+height: 20px;
+border: 2px solid #FFD700;
+border-radius: 50%;
+background-color: transparent;
+display: inline-block;
+position: relative;
+cursor: pointer;
+}
+.custom-radio:checked::after {
+content: '';
+position: absolute;
+width: 10px;
+height: 10px;
+top: 3px;
+left: 3px;
+border-radius: 50%;
+background: #FFD700;
+}
+.custom-switch {
+position: relative;
+display: inline-block;
+width: 50px;
+height: 24px;
+}
+.custom-switch input {
+opacity: 0;
+width: 0;
+height: 0;
+}
+.slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #333;
+transition: .4s;
+border-radius: 34px;
+}
+.slider:before {
+position: absolute;
+content: "";
+height: 16px;
+width: 16px;
+left: 4px;
+bottom: 4px;
+background-color: white;
+transition: .4s;
+border-radius: 50%;
+}
+input:checked + .slider {
+background-color: #FFD700;
+}
+input:checked + .slider:before {
+transform: translateX(26px);
+}
+.custom-range {
+-webkit-appearance: none;
+width: 100%;
+height: 8px;
+background: #333;
+border-radius: 5px;
+outline: none;
+}
+.custom-range::-webkit-slider-thumb {
+-webkit-appearance: none;
+appearance: none;
+width: 20px;
+height: 20px;
+border-radius: 50%;
+background: #FFD700;
+cursor: pointer;
+box-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
+}
+.custom-range::-moz-range-thumb {
+width: 20px;
+height: 20px;
+border-radius: 50%;
+background: #FFD700;
+cursor: pointer;
+box-shadow: 0 0 5px rgba(255, 215, 0, 0.7);
+}
+.form-input {
+background-color: rgba(30, 30, 30, 0.7);
+border: 1px solid #333;
+color: white;
+transition: all 0.3s ease;
+}
+.form-input:focus {
+border-color: #FFD700;
+box-shadow: 0 0 0 2px rgba(255, 215, 0, 0.2);
+}
+.service-card {
+transition: all 0.3s ease;
+border: 1px solid #333;
+}
+.service-card:hover {
+transform: translateY(-5px);
+border-color: #FFD700;
+box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+}
+.investment-card {
+transition: all 0.3s ease;
+border: 1px solid #333;
+}
+.investment-card:hover {
+border-color: #FFD700;
+box-shadow: 0 5px 15px rgba(255, 215, 0, 0.2);
+}
+.pixel-icon {
+display: inline-block;
+position: relative;
+width: 24px;
+height: 24px;
+background-color: #FFD700;
+clip-path: polygon(
+0% 25%, 25% 25%, 25% 0%, 75% 0%, 75% 25%,
+100% 25%, 100% 75%, 75% 75%, 75% 100%,
+25% 100%, 25% 75%, 0% 75%
+);
+}
+@keyframes pulse {
+0% { opacity: 0.5; }
+50% { opacity: 1; }
+100% { opacity: 0.5; }
+}
+.pulse {
+animation: pulse 2s infinite;
+}
+.scroll-indicator {
+position: absolute;
+bottom: 30px;
+left: 50%;
+transform: translateX(-50%);
+width: 30px;
+height: 50px;
+border: 2px solid #FFD700;
+border-radius: 15px;
+}
+.scroll-indicator::before {
+content: '';
+position: absolute;
+top: 10px;
+left: 50%;
+width: 6px;
+height: 6px;
+margin-left: -3px;
+background-color: #FFD700;
+border-radius: 50%;
+animation: scroll 2s infinite;
+}
+@keyframes scroll {
+0% { transform: translateY(0); opacity: 1; }
+100% { transform: translateY(15px); opacity: 0; }
+}
+.particle {
+position: absolute;
+background-color: rgba(255, 215, 0, 0.3);
+border-radius: 50%;
+pointer-events: none;
+}
 </style>
 
-<div class="bloco-pix">
-  <h3>Chave Pix:</h3>
-  <p>❖ 21eff4f2-9fac-4282-b44a-5ce9a20791ff</p>
-  <div class="pix-symbol" onclick="openModal()">Ver QR Code</div>
+
+<div class="fixed bottom-4 right-4 z-50 bg-black bg-opacity-80 p-2 rounded-full border border-primary flex items-center space-x-2">
+    <button id="toggleMusic" class="w-10 h-10 flex items-center justify-center text-primary hover:bg-primary hover:bg-opacity-10 rounded-full transition-all">
+        <i class="ri-volume-mute-fill ri-lg"></i>
+    </button>
+    <div class="hidden group-hover:block text-xs text-gray-400">Background Music</div>
 </div>
-
-<div id="qrcode-modal" class="modal" onclick="closeModal(event)">
-  <img src="https://i.postimg.cc/NjYjwssT/qrcode-pix.png" alt="QR Code Pix">
+<header class="fixed top-0 left-0 right-0 z-50 bg-black bg-opacity-90 border-b border-gray-800">
+<nav class="container mx-auto px-6 py-4 flex items-center justify-between">
+<div class="flex items-center">
+<a href="#" class="text-3xl font-['Pacifico'] text-primary">Vertex</a>
 </div>
-
-<script>
-  function openModal() {
-    document.getElementById('qrcode-modal').classList.add('show');
-  }
-
-  function closeModal(e) {
-    if (e.target.id === 'qrcode-modal') {
-      e.target.classList.remove('show');
-    }
-  }
-
-  document.addEventListener('keydown', function (e) {
-    if (e.key === 'Escape') {
-      document.getElementById('qrcode-modal').classList.remove('show');
-    }
-  });
+<div class="hidden md:flex items-center space-x-8">
+<a href="#home" class="nav-link text-white hover:text-primary transition-colors active">Home</a>
+<a href="#about" class="nav-link text-white hover:text-primary transition-colors">About Us</a>
+<a href="#services" class="nav-link text-white hover:text-primary transition-colors">Services</a>
+<a href="#investment" class="nav-link text-white hover:text-primary transition-colors">Investment</a>
+<a href="#contact" class="nav-link text-white hover:text-primary transition-colors">Contact</a>
+</div>
+<div class="md:hidden flex items-center">
+<button id="mobile-menu-button" class="text-white focus:outline-none">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-menu-line ri-lg"></i>
+</div>
+</button>
+</div>
+</nav>
+<div id="mobile-menu" class="md:hidden hidden bg-black bg-opacity-95 border-b border-gray-800">
+<div class="container mx-auto px-6 py-4 space-y-4">
+<a href="#home" class="block text-white hover:text-primary transition-colors">Home</a>
+<a href="#about" class="block text-white hover:text-primary transition-colors">About Us</a>
+<a href="#services" class="block text-white hover:text-primary transition-colors">Services</a>
+<a href="#investment" class="block text-white hover:text-primary transition-colors">Investment</a>
+<a href="#contact" class="block text-white hover:text-primary transition-colors">Contact</a>
+</div>
+</div>
+</header>
+<main>
+<!-- Hero Section -->
+<section id="home" class="relative min-h-screen flex items-center justify-center pt-16" style="background-image: url('https://readdy.ai/api/search-image?query=futuristic%2520technology%2520background%2520with%2520abstract%2520circuit%2520patterns%2520and%2520glowing%2520yellow%2520elements%2520on%2520black%2520background%252C%2520minimalist%2520design%2520with%2520subtle%2520electronic%2520retrofuturism%252C%2520high%2520contrast%252C%2520professional%2520looking%252C%2520corporate%2520tech%2520aesthetic&amp;width=1920&amp;height=1080&amp;seq=1&amp;orientation=landscape'); background-size: cover; background-position: center;">
+<div class="absolute inset-0 bg-black bg-opacity-60"></div>
+<div class="container mx-auto px-6 z-10">
+<div class="flex flex-col items-center text-center max-w-4xl mx-auto">
+<h1 class="text-5xl md:text-7xl font-bold mb-6 glow">
+<span class="text-white">Pioneering the</span>
+<span class="text-primary"> Future</span>
+</h1>
+<p class="text-xl md:text-2xl mb-10 max-w-3xl">
+At Vertex, we transform visionary ideas into revolutionary technology solutions that shape tomorrow's world.
+</p>
+<div class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
+<a href="#services" class="bg-primary text-black px-8 py-3 rounded-button font-semibold hover:bg-opacity-90 transition-all transform hover:-translate-y-1 whitespace-nowrap">
+Explore Services
+</a>
+<a href="#about" class="bg-transparent border-2 border-primary text-primary px-8 py-3 rounded-button font-semibold hover:bg-primary hover:bg-opacity-10 transition-all transform hover:-translate-y-1 whitespace-nowrap">
+Learn More
+</a>
+</div>
+</div>
+</div>
+<div class="scroll-indicator"></div>
+</section>
+<!-- About Section -->
+<section id="about" class="py-20 bg-black">
+<div class="container mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-4xl font-bold mb-4">About <span class="text-primary">Vertex</span></h2>
+<div class="w-24 h-1 bg-primary mx-auto"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+<div class="rounded-lg overflow-hidden relative group">
+<img src="https://readdy.ai/api/search-image?query=futuristic%20digital%20network%20of%20glowing%20yellow%20circuit%20lines%20and%20nodes%20forming%20abstract%20human%20silhouettes%20against%20black%20background%2C%20cyberpunk%20style%20team%20representation%2C%20retrofuturistic%20aesthetic%20with%20data%20streams%20and%20holographic%20elements%2C%20professional%20tech%20visualization%2C%208k%20quality%20digital%20art%20animation%20style&amp;width=600&amp;height=400&amp;seq=2&amp;orientation=landscape" alt="Vertex Digital Team" class="w-full h-full object-cover object-top rounded-lg shadow-lg">
+<div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+<div class="absolute bottom-0 left-0 right-0 p-6 text-white transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+<p class="text-sm font-medium text-primary">Our Elite Team</p>
+<p class="text-xs text-gray-300">8 Innovators Shaping the Future</p>
+</div>
+</div>
+<div>
+<h3 class="text-2xl font-semibold mb-4 text-primary">Our Mission</h3>
+<p class="text-gray-300 mb-6">
+Founded in 2023 by visionary entrepreneurs Nicolas Camargo Marques and Cauã Klippel Fergutz, Vertex was born from a passion to build the future with today's technology. We believe innovation should be accessible, impactful, and forward-thinking.
+</p>
+<p class="text-gray-300 mb-6">
+Our elite team of 8 professionals combines cutting-edge technical knowledge with creative vision to deliver solutions that don't just meet current needs but anticipate future challenges. Each member brings unique expertise and perspective to our innovative projects.
+</p>
+<div class="grid grid-cols-2 gap-6 mt-8">
+<div class="border border-gray-800 p-4 rounded-lg bg-gray-900 bg-opacity-50">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mb-4">
+<i class="ri-lightbulb-line ri-xl text-primary"></i>
+</div>
+<h4 class="text-xl font-semibold mb-2">Innovation</h4>
+<p class="text-gray-400">Pushing boundaries with forward-thinking solutions</p>
+</div>
+<div class="border border-gray-800 p-4 rounded-lg bg-gray-900 bg-opacity-50">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mb-4">
+<i class="ri-shield-check-line ri-xl text-primary"></i>
+</div>
+<h4 class="text-xl font-semibold mb-2">Integrity</h4>
+<p class="text-gray-400">Building trust through transparent practices</p>
+</div>
+<div class="border border-gray-800 p-4 rounded-lg bg-gray-900 bg-opacity-50">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mb-4">
+<i class="ri-team-line ri-xl text-primary"></i>
+</div>
+<h4 class="text-xl font-semibold mb-2">Collaboration</h4>
+<p class="text-gray-400">Working together to achieve exceptional results</p>
+</div>
+<div class="border border-gray-800 p-4 rounded-lg bg-gray-900 bg-opacity-50">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mb-4">
+<i class="ri-rocket-line ri-xl text-primary"></i>
+</div>
+<h4 class="text-xl font-semibold mb-2">Excellence</h4>
+<p class="text-gray-400">Delivering quality in everything we create</p>
+</div>
+</div>
+</div>
+</div>
+<div class="mt-20">
+<h3 class="text-2xl font-semibold mb-8 text-center">Our Expertise</h3>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+<div class="text-center p-6 border border-gray-800 rounded-lg bg-gray-900 bg-opacity-30 hover:border-primary transition-all">
+<div class="w-16 h-16 flex items-center justify-center mx-auto bg-primary bg-opacity-10 rounded-full mb-4">
+<i class="ri-code-s-slash-line ri-2x text-primary"></i>
+</div>
+<h4 class="text-xl font-semibold mb-2">Development</h4>
+<p class="text-gray-400">10+ years of experience in cutting-edge software development</p>
+</div>
+<div class="text-center p-6 border border-gray-800 rounded-lg bg-gray-900 bg-opacity-30 hover:border-primary transition-all">
+<div class="w-16 h-16 flex items-center justify-center mx-auto bg-primary bg-opacity-10 rounded-full mb-4">
+<i class="ri-ai-generate ri-2x text-primary"></i>
+</div>
+<h4 class="text-xl font-semibold mb-2">AI Research</h4>
+<p class="text-gray-400">Pioneering artificial intelligence solutions for real-world problems</p>
+</div>
+<div class="text-center p-6 border border-gray-800 rounded-lg bg-gray-900 bg-opacity-30 hover:border-primary transition-all">
+<div class="w-16 h-16 flex items-center justify-center mx-auto bg-primary bg-opacity-10 rounded-full mb-4">
+<i class="ri-gamepad-line ri-2x text-primary"></i>
+</div>
+<h4 class="text-xl font-semibold mb-2">Game Design</h4>
+<p class="text-gray-400">Creating immersive gaming experiences with advanced technology</p>
+</div>
+<div class="text-center p-6 border border-gray-800 rounded-lg bg-gray-900 bg-opacity-30 hover:border-primary transition-all">
+<div class="w-16 h-16 flex items-center justify-center mx-auto bg-primary bg-opacity-10 rounded-full mb-4">
+<i class="ri-movie-line ri-2x text-primary"></i>
+</div>
+<h4 class="text-xl font-semibold mb-2">Video Production</h4>
+<p class="text-gray-400">Professional video editing and production with cutting-edge tools</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Services Section -->
+<section id="services" class="py-20 bg-gray-950">
+<div class="container mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-4xl font-bold mb-4">Our <span class="text-primary">Services</span></h2>
+<div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
+<p class="text-gray-300 max-w-3xl mx-auto">
+We offer a comprehensive range of technology solutions designed to transform your ideas into reality.
+</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div class="service-card p-6 rounded-lg bg-black bg-opacity-60">
+<div class="flex items-start mb-4">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4">
+<i class="ri-ai-generate ri-xl text-primary"></i>
+</div>
+<div>
+<h3 class="text-2xl font-semibold mb-2">Artificial Intelligence Development</h3>
+<p class="text-gray-400 mb-4">
+Cutting-edge AI solutions tailored to your business needs, from machine learning algorithms to natural language processing.
+</p>
+<ul class="space-y-2 mb-6">
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-checkbox-circle-line text-primary"></i>
+</div>
+<span class="text-gray-300">Custom AI model development</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-checkbox-circle-line text-primary"></i>
+</div>
+<span class="text-gray-300">Natural language processing solutions</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-checkbox-circle-line text-primary"></i>
+</div>
+<span class="text-gray-300">Computer vision implementation</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-checkbox-circle-line text-primary"></i>
+</div>
+<span class="text-gray-300">AI integration with existing systems</span>
+</li>
+</ul>
+<a href="#contact" class="inline-block bg-transparent border border-primary text-primary px-6 py-2 rounded-button hover:bg-primary hover:bg-opacity-10 transition-all whitespace-nowrap">
+Learn More
+</a>
+</div>
+</div>
+</div>
+<div class="service-card p-6 rounded-lg bg-black bg-opacity-60">
+<div class="flex items-start mb-4">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4">
+<i class="ri-gamepad-line ri-xl text-primary"></i>
+</div>
+<div>
+<h3 class="text-2xl font-semibold mb-2">Game Design &amp; Development</h3>
+<p class="text-gray-400 mb-4">
+End-to-end game development services, from concept to deployment, creating immersive gaming experiences.
+</p>
+<ul class="space-y-2 mb-6">
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-checkbox-circle-line text-primary"></i>
+</div>
+<span class="text-gray-300">3D and 2D game development</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-checkbox-circle-line text-primary"></i>
+</div>
+<span class="text-gray-300">Cross-platform game solutions</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-checkbox-circle-line text-primary"></i>
+</div>
+<span class="text-gray-300">Game art and animation</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-checkbox-circle-line text-primary"></i>
+</div>
+<span class="text-gray-300">Multiplayer and networking solutions</span>
+</li>
+</ul>
+<a href="#contact" class="inline-block bg-transparent border border-primary text-primary px-6 py-2 rounded-button hover:bg-primary hover:bg-opacity-10 transition-all whitespace-nowrap">
+Learn More
+</a>
+</div>
+</div>
+</div>
+<div class="service-card p-6 rounded-lg bg-black bg-opacity-60">
+<div class="flex items-start mb-4">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4">
+<i class="ri-movie-line ri-xl text-primary"></i>
+</div>
+<div>
+<h3 class="text-2xl font-semibold mb-2">Professional Video Editing</h3>
+<p class="text-gray-400 mb-4">
+High-quality video editing services for commercials, corporate videos, social media content, and more.
+</p>
+<ul class="space-y-2 mb-6">
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-checkbox-circle-line text-primary"></i>
+</div>
+<span class="text-gray-300">Commercial and promotional videos</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-checkbox-circle-line text-primary"></i>
+</div>
+<span class="text-gray-300">Visual effects and motion graphics</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-checkbox-circle-line text-primary"></i>
+</div>
+<span class="text-gray-300">Color grading and correction</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-checkbox-circle-line text-primary"></i>
+</div>
+<span class="text-gray-300">Social media video optimization</span>
+</li>
+</ul>
+<a href="#contact" class="inline-block bg-transparent border border-primary text-primary px-6 py-2 rounded-button hover:bg-primary hover:bg-opacity-10 transition-all whitespace-nowrap">
+Learn More
+</a>
+</div>
+</div>
+</div>
+<div class="service-card p-6 rounded-lg bg-black bg-opacity-60">
+<div class="flex items-start mb-4">
+<div class="w-12 h-12 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4">
+<i class="ri-lightbulb-line ri-xl text-primary"></i>
+</div>
+<div>
+<h3 class="text-2xl font-semibold mb-2">Custom Innovation Projects</h3>
+<p class="text-gray-400 mb-4">
+Bespoke technology solutions for unique challenges, bringing your innovative ideas to life.
+</p>
+<ul class="space-y-2 mb-6">
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-checkbox-circle-line text-primary"></i>
+</div>
+<span class="text-gray-300">Concept development and prototyping</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-checkbox-circle-line text-primary"></i>
+</div>
+<span class="text-gray-300">IoT and embedded systems</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-checkbox-circle-line text-primary"></i>
+</div>
+<span class="text-gray-300">Augmented and virtual reality</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-checkbox-circle-line text-primary"></i>
+</div>
+<span class="text-gray-300">Blockchain and distributed systems</span>
+</li>
+</ul>
+<a href="#contact" class="inline-block bg-transparent border border-primary text-primary px-6 py-2 rounded-button hover:bg-primary hover:bg-opacity-10 transition-all whitespace-nowrap">
+Learn More
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Investment Section -->
+<section id="investment" class="py-20 bg-black" style="background-image: url('data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M11 18c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm48 25c3.866 0 7-3.134 7-7s-3.134-7-7-7-7 3.134-7 7 3.134 7 7 7zm-43-7c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm63 31c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM34 90c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zm56-76c1.657 0 3-1.343 3-3s-1.343-3-3-3-3 1.343-3 3 1.343 3 3 3zM12 86c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm28-65c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm23-11c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-6 60c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm29 22c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zM32 63c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm57-13c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm-9-21c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM60 91c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM35 41c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2zM12 60c1.105 0 2-.895 2-2s-.895-2-2-2-2 .895-2 2 .895 2 2 2z' fill='%23FFD700' fill-opacity='0.05' fill-rule='evenodd'/%3E%3C/svg%3E');">
+<div class="container mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-4xl font-bold mb-4"><span class="text-primary">Invest</span> in the Future</h2>
+<div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
+<p class="text-gray-300 max-w-3xl mx-auto">
+Join us in shaping the future of technology. Vertex offers investment opportunities that provide both financial returns and the satisfaction of supporting innovation.
+</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+<div class="investment-card p-8 rounded-lg bg-gray-900 bg-opacity-50 border border-gray-800 relative overflow-hidden">
+<div class="absolute top-0 right-0 bg-primary text-black px-4 py-1 text-sm font-semibold">
+Popular
+</div>
+<h3 class="text-2xl font-semibold mb-2">Standard Shares</h3>
+<div class="flex items-end mb-6">
+<span class="text-4xl font-bold text-primary">R$5</span>
+<span class="text-gray-400 ml-2">per share</span>
+</div>
+<p class="text-gray-300 mb-6">
+Invest in Vertex's core operations and receive monthly dividends from our net profits.
+</p>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-check-line text-primary"></i>
+</div>
+<span class="text-gray-300">Monthly dividend payments</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-check-line text-primary"></i>
+</div>
+<span class="text-gray-300">Voting rights in company decisions</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-check-line text-primary"></i>
+</div>
+<span class="text-gray-300">Quarterly financial reports</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-check-line text-primary"></i>
+</div>
+<span class="text-gray-300">Priority access to new products</span>
+</li>
+</ul>
+<a href="#contact" class="block w-full bg-primary text-black py-3 rounded-button text-center font-semibold hover:bg-opacity-90 transition-all whitespace-nowrap">
+Invest Now
+</a>
+</div>
+<div class="investment-card p-8 rounded-lg bg-gray-900 bg-opacity-50 border border-gray-800">
+<h3 class="text-2xl font-semibold mb-2">Special Shares</h3>
+<div class="flex items-end mb-6">
+<span class="text-4xl font-bold text-primary">R$50</span>
+<span class="text-gray-400 ml-2">per share</span>
+</div>
+<p class="text-gray-300 mb-6">
+Diversified investment across Vertex and its subsidiaries for enhanced returns and benefits.
+</p>
+<ul class="space-y-3 mb-8">
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-check-line text-primary"></i>
+</div>
+<span class="text-gray-300">Higher dividend yield potential</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-check-line text-primary"></i>
+</div>
+<span class="text-gray-300">Stake in all Vertex subsidiaries</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-check-line text-primary"></i>
+</div>
+<span class="text-gray-300">Enhanced voting rights</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-check-line text-primary"></i>
+</div>
+<span class="text-gray-300">Exclusive investor events</span>
+</li>
+<li class="flex items-center">
+<div class="w-5 h-5 flex items-center justify-center mr-2">
+<i class="ri-check-line text-primary"></i>
+</div>
+<span class="text-gray-300">Early access to beta products</span>
+</li>
+</ul>
+<a href="#contact" class="block w-full bg-transparent border border-primary text-primary py-3 rounded-button text-center font-semibold hover:bg-primary hover:bg-opacity-10 transition-all whitespace-nowrap">
+Invest Now
+</a>
+</div>
+</div>
+<div class="mt-16 max-w-4xl mx-auto bg-gray-900 bg-opacity-50 p-8 rounded-lg border border-gray-800">
+<h3 class="text-2xl font-semibold mb-6 text-center">Investment Calculator</h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+<div>
+<div class="mb-6">
+<label class="block text-gray-300 mb-2">Share Type</label>
+<div class="flex space-x-4">
+<label class="flex items-center cursor-pointer">
+<input type="radio" name="share-type" value="standard" class="custom-radio" checked="">
+<span class="ml-2 text-gray-300">Standard</span>
+</label>
+<label class="flex items-center cursor-pointer">
+<input type="radio" name="share-type" value="special" class="custom-radio">
+<span class="ml-2 text-gray-300">Special</span>
+</label>
+</div>
+</div>
+<div class="mb-6">
+<label for="share-quantity" class="block text-gray-300 mb-2">Number of Shares</label>
+<input type="number" id="share-quantity" min="1" value="10" class="form-input w-full px-4 py-2 rounded-md focus:outline-none">
+</div>
+<div class="mb-6">
+<label for="investment-period" class="block text-gray-300 mb-2">Investment Period (Months)</label>
+<div class="flex items-center">
+<input type="range" id="investment-period" min="1" max="60" value="12" class="custom-range mr-4">
+<span id="period-value" class="text-gray-300 w-10">12</span>
+</div>
+</div>
+<div class="mb-6">
+<label class="block text-gray-300 mb-2">Reinvest Dividends</label>
+<label class="custom-switch">
+<input type="checkbox" id="reinvest-toggle">
+<span class="slider"></span>
+</label>
+</div>
+</div>
+<div class="bg-black bg-opacity-50 p-6 rounded-lg">
+<h4 class="text-xl font-semibold mb-4 text-primary">Projected Returns</h4>
+<div class="space-y-4">
+<div class="flex justify-between">
+<span class="text-gray-400">Initial Investment:</span>
+<span id="initial-investment" class="text-white font-semibold">R$50.00</span>
+</div>
+<div class="flex justify-between">
+<span class="text-gray-400">Projected Dividends:</span>
+<span id="projected-dividends" class="text-white font-semibold">R$6.00</span>
+</div>
+<div class="flex justify-between">
+<span class="text-gray-400">Estimated Value Growth:</span>
+<span id="value-growth" class="text-white font-semibold">R$2.50</span>
+</div>
+<div class="border-t border-gray-700 my-2 pt-2 flex justify-between">
+<span class="text-gray-300 font-semibold">Total Projected Return:</span>
+<span id="total-return" class="text-primary font-bold">R$58.50</span>
+</div>
+<div class="flex justify-between">
+<span class="text-gray-400">ROI:</span>
+<span id="roi-percentage" class="text-white font-semibold">17.0%</span>
+</div>
+</div>
+<div class="mt-6">
+<a href="#contact" class="block w-full bg-primary text-black py-2 rounded-button text-center font-semibold hover:bg-opacity-90 transition-all whitespace-nowrap">
+Start Investing
+</a>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section id="contact" class="py-20 bg-gray-950">
+<div class="container mx-auto px-6">
+<div class="text-center mb-16">
+<h2 class="text-4xl font-bold mb-4">Get in <span class="text-primary">Touch</span></h2>
+<div class="w-24 h-1 bg-primary mx-auto mb-6"></div>
+<p class="text-gray-300 max-w-3xl mx-auto">
+Have questions about our services or investment opportunities? We'd love to hear from you.
+</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
+<div>
+<form class="space-y-6">
+<div>
+<label for="name" class="block text-gray-300 mb-2">Your Name</label>
+<input type="text" id="name" class="form-input w-full px-4 py-3 rounded-md focus:outline-none text-sm" placeholder="Enter your name">
+</div>
+<div>
+<label for="email" class="block text-gray-300 mb-2">Email Address</label>
+<input type="email" id="email" class="form-input w-full px-4 py-3 rounded-md focus:outline-none text-sm" placeholder="Enter your email">
+</div>
+<div>
+<label for="subject" class="block text-gray-300 mb-2">Subject</label>
+<div class="relative">
+<select id="subject-select" class="hidden">
+<option value="general">General Inquiry</option>
+<option value="services">Services</option>
+<option value="investment">Investment</option>
+<option value="partnership">Partnership</option>
+</select>
+<div id="custom-select" class="form-input w-full px-4 py-3 rounded-md focus:outline-none text-sm flex items-center justify-between cursor-pointer">
+<span id="selected-option">General Inquiry</span>
+<div class="w-5 h-5 flex items-center justify-center">
+<i class="ri-arrow-down-s-line"></i>
+</div>
+</div>
+<div id="select-options" class="absolute z-10 w-full bg-gray-900 rounded-md mt-1 border border-gray-800 hidden">
+<div class="py-2 px-4 hover:bg-gray-800 cursor-pointer" data-value="general">General Inquiry</div>
+<div class="py-2 px-4 hover:bg-gray-800 cursor-pointer" data-value="services">Services</div>
+<div class="py-2 px-4 hover:bg-gray-800 cursor-pointer" data-value="investment">Investment</div>
+<div class="py-2 px-4 hover:bg-gray-800 cursor-pointer" data-value="partnership">Partnership</div>
+</div>
+</div>
+</div>
+<div>
+<label for="message" class="block text-gray-300 mb-2">Message</label>
+<textarea id="message" rows="5" class="form-input w-full px-4 py-3 rounded-md focus:outline-none text-sm" placeholder="Enter your message"></textarea>
+</div>
+<div class="flex items-center">
+<input type="checkbox" id="newsletter" class="custom-checkbox">
+<label for="newsletter" class="ml-2 text-gray-300 text-sm">Subscribe to our newsletter for updates</label>
+</div>
+<button type="submit" class="w-full bg-primary text-black py-3 rounded-button font-semibold hover:bg-opacity-90 transition-all whitespace-nowrap">
+Send Message
+</button>
+</form>
+</div>
+<div class="bg-black bg-opacity-60 p-8 rounded-lg border border-gray-800">
+<h3 class="text-2xl font-semibold mb-6">Contact Information</h3>
+<div class="space-y-6">
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4">
+<i class="ri-map-pin-line text-primary"></i>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-1">Our Location</h4>
+<p class="text-gray-400">Caxias do Sul<br>Rio Grande do Sul, Brazil</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4">
+<i class="ri-mail-line text-primary"></i>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-1">Email Us</h4>
+<p class="text-gray-400">contato.vertex.oficial@gmail.com</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4">
+<i class="ri-phone-line text-primary"></i>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-1">Call Us</h4>
+<p class="text-gray-400">+55 (54) 992451957</p>
+</div>
+</div>
+<div class="flex items-start">
+<div class="w-10 h-10 flex items-center justify-center bg-primary bg-opacity-10 rounded-full mr-4">
+<i class="ri-time-line text-primary"></i>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-1">Working Hours</h4>
+<p class="text-gray-400">Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 10:00 AM - 2:00 PM</p>
+</div>
+</div>
+</div>
+<div class="mt-8">
+<h4 class="text-lg font-semibold mb-4">Connect With Us</h4>
+<div class="flex space-x-4">
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary hover:text-black transition-colors">
+<i class="ri-twitter-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary hover:text-black transition-colors">
+<i class="ri-facebook-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary hover:text-black transition-colors">
+<i class="ri-instagram-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary hover:text-black transition-colors">
+<i class="ri-linkedin-fill"></i>
+</a>
+<a href="#" class="w-10 h-10 flex items-center justify-center bg-gray-800 rounded-full hover:bg-primary hover:text-black transition-colors">
+<i class="ri-github-fill"></i>
+</a>
+</div>
+</div>
+<div class="mt-8 rounded-lg overflow-hidden h-48 bg-gray-800">
+<div class="w-full h-full" style="background-image: url('https://public.readdy.ai/gen_page/map_placeholder_1280x720.png'); background-position: center; background-size: cover; filter: brightness(0.9) contrast(1.1);"></div>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<footer class="bg-black border-t border-gray-900 py-12">
+<div class="container mx-auto px-6">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+<div>
+<a href="#" class="text-3xl font-['Pacifico'] text-primary mb-4 inline-block">Vertex</a>
+<p class="text-gray-400 mb-6">
+Pioneering the future through innovative technology solutions and strategic investments.
+</p>
+<div class="flex space-x-4">
+<a href="#" class="text-gray-400 hover:text-primary transition-colors">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-twitter-fill"></i>
+</div>
+</a>
+<a href="#" class="text-gray-400 hover:text-primary transition-colors">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-facebook-fill"></i>
+</div>
+</a>
+<a href="#" class="text-gray-400 hover:text-primary transition-colors">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-instagram-fill"></i>
+</div>
+</a>
+<a href="#" class="text-gray-400 hover:text-primary transition-colors">
+<div class="w-8 h-8 flex items-center justify-center">
+<i class="ri-linkedin-fill"></i>
+</div>
+</a>
+</div>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-4 text-white">Quick Links</h4>
+<ul class="space-y-2">
+<li><a href="#home" class="text-gray-400 hover:text-primary transition-colors">Home</a></li>
+<li><a href="#about" class="text-gray-400 hover:text-primary transition-colors">About Us</a></li>
+<li><a href="#services" class="text-gray-400 hover:text-primary transition-colors">Services</a></li>
+<li><a href="#investment" class="text-gray-400 hover:text-primary transition-colors">Investment</a></li>
+<li><a href="#contact" class="text-gray-400 hover:text-primary transition-colors">Contact</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-4 text-white">Services</h4>
+<ul class="space-y-2">
+<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">AI Development</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Game Design</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Video Editing</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Custom Projects</a></li>
+<li><a href="#" class="text-gray-400 hover:text-primary transition-colors">Consulting</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-lg font-semibold mb-4 text-white">Newsletter</h4>
+<p class="text-gray-400 mb-4">
+Subscribe to our newsletter for the latest updates and offers.
+</p>
+<form class="flex">
+<input type="email" placeholder="Your email" class="form-input px-4 py-2 rounded-l-md focus:outline-none w-full text-sm border-none">
+<button type="submit" class="bg-primary text-black px-4 py-2 rounded-r-md font-semibold hover:bg-opacity-90 transition-all whitespace-nowrap">
+Subscribe
+</button>
+</form>
+</div>
+</div>
+<div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+<p class="text-gray-400 text-sm mb-4 md:mb-0">
+© 2025 Vertex Innovation. All rights reserved.
+</p>
+<div class="flex space-x-4">
+<a href="#" class="text-gray-400 hover:text-primary text-sm transition-colors">Privacy Policy</a>
+<a href="#" class="text-gray-400 hover:text-primary text-sm transition-colors">Terms of Service</a>
+<a href="#" class="text-gray-400 hover:text-primary text-sm transition-colors">Cookie Policy</a>
+</div>
+</div>
+<div class="mt-8 flex justify-center space-x-6">
+<div class="w-10 h-6 flex items-center justify-center">
+<i class="ri-visa-fill ri-lg text-gray-400"></i>
+</div>
+<div class="w-10 h-6 flex items-center justify-center">
+<i class="ri-mastercard-fill ri-lg text-gray-400"></i>
+</div>
+<div class="w-10 h-6 flex items-center justify-center">
+<i class="ri-paypal-fill ri-lg text-gray-400"></i>
+</div>
+<div class="w-10 h-6 flex items-center justify-center">
+<i class="ri-apple-fill ri-lg text-gray-400"></i>
+</div>
+<div class="w-10 h-6 flex items-center justify-center">
+<i class="ri-google-fill ri-lg text-gray-400"></i>
+</div>
+</div>
+</div>
+</footer>
+<script type="text/javascript" crossorigin="anonymous" src="https://us-assets.i.posthog.com/array/phc_t9tkQZJiyi2ps9zUYm8TDsL6qXo4YmZx0Ot5rBlAlEd/config.js"></script><script type="text/javascript" crossorigin="anonymous" src="https://us-assets.i.posthog.com/static/dead-clicks-autocapture.js?v=1.248.1"></script><script id="mobile-menu-script">
+document.addEventListener('DOMContentLoaded', function() {
+const mobileMenuButton = document.getElementById('mobile-menu-button');
+const mobileMenu = document.getElementById('mobile-menu');
+mobileMenuButton.addEventListener('click', function() {
+mobileMenu.classList.toggle('hidden');
+});
+// Close mobile menu when clicking on a link
+const mobileLinks = mobileMenu.querySelectorAll('a');
+mobileLinks.forEach(link => {
+link.addEventListener('click', function() {
+mobileMenu.classList.add('hidden');
+});
+});
+});
 </script>
-</body>
-</html>
+<script id="custom-select-script">
+document.addEventListener('DOMContentLoaded', function() {
+const customSelect = document.getElementById('custom-select');
+const selectOptions = document.getElementById('select-options');
+const selectedOption = document.getElementById('selected-option');
+const options = document.querySelectorAll('#select-options div');
+customSelect.addEventListener('click', function() {
+selectOptions.classList.toggle('hidden');
+});
+options.forEach(option => {
+option.addEventListener('click', function() {
+selectedOption.textContent = this.textContent;
+selectOptions.classList.add('hidden');
+document.getElementById('subject-select').value = this.dataset.value;
+});
+});
+// Close dropdown when clicking outside
+document.addEventListener('click', function(event) {
+if (!customSelect.contains(event.target)) {
+selectOptions.classList.add('hidden');
+}
+});
+});
+</script>
+<script id="investment-calculator-script">
+document.addEventListener('DOMContentLoaded', function() {
+const shareQuantityInput = document.getElementById('share-quantity');
+const investmentPeriodInput = document.getElementById('investment-period');
+const periodValue = document.getElementById('period-value');
+const reinvestToggle = document.getElementById('reinvest-toggle');
+const shareTypeInputs = document.querySelectorAll('input[name="share-type"]');
+const initialInvestmentOutput = document.getElementById('initial-investment');
+const projectedDividendsOutput = document.getElementById('projected-dividends');
+const valueGrowthOutput = document.getElementById('value-growth');
+const totalReturnOutput = document.getElementById('total-return');
+const roiPercentageOutput = document.getElementById('roi-percentage');
+// Update period value display
+investmentPeriodInput.addEventListener('input', function() {
+periodValue.textContent = this.value;
+calculateReturns();
+});
+// Update on quantity change
+shareQuantityInput.addEventListener('input', function() {
+calculateReturns();
+});
+// Update on reinvest toggle
+reinvestToggle.addEventListener('change', function() {
+calculateReturns();
+});
+// Update on share type change
+shareTypeInputs.forEach(input => {
+input.addEventListener('change', function() {
+calculateReturns();
+});
+});
+function calculateReturns() {
+const shareType = document.querySelector('input[name="share-type"]:checked').value;
+const sharePrice = shareType === 'standard' ? 5 : 50;
+const quantity = parseInt(shareQuantityInput.value) || 0;
+const months = parseInt(investmentPeriodInput.value) || 0;
+const reinvest = reinvestToggle.checked;
+const initialInvestment = sharePrice * quantity;
+// Calculate projected returns (simplified model)
+let monthlyRate = shareType === 'standard' ? 0.01 : 0.015; // 1% or 1.5% monthly return
+let totalDividends = 0;
+if (reinvest) {
+// Compound interest calculation
+let currentValue = initialInvestment;
+for (let i = 0; i < months; i++) {
+const monthlyDividend = currentValue * monthlyRate;
+totalDividends += monthlyDividend;
+currentValue += monthlyDividend;
+}
+} else {
+// Simple interest calculation
+totalDividends = initialInvestment * monthlyRate * months;
+}
+// Estimated value growth (separate from dividends)
+const annualGrowthRate = shareType === 'standard' ? 0.05 : 0.08; // 5% or 8% annual growth
+const valueGrowth = initialInvestment * (annualGrowthRate * (months / 12));
+const totalReturn = initialInvestment + totalDividends + valueGrowth;
+const roi = ((totalReturn - initialInvestment) / initialInvestment) * 100;
+// Update the UI
+initialInvestmentOutput.textContent = `R$${initialInvestment.toFixed(2)}`;
+projectedDividendsOutput.textContent = `R$${totalDividends.toFixed(2)}`;
+valueGrowthOutput.textContent = `R$${valueGrowth.toFixed(2)}`;
+totalReturnOutput.textContent = `R$${totalReturn.toFixed(2)}`;
+roiPercentageOutput.textContent = `${roi.toFixed(1)}%`;
+}
+// Initial calculation
+calculateReturns();
+});
+</script>
+<script id="scroll-animation-script">
+document.addEventListener('DOMContentLoaded', function() {
+// Smooth scroll for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+anchor.addEventListener('click', function(e) {
+e.preventDefault();
+const targetId = this.getAttribute('href');
+if (targetId === '#') return;
+const targetElement = document.querySelector(targetId);
+if (targetElement) {
+window.scrollTo({
+top: targetElement.offsetTop - 80, // Adjust for header height
+behavior: 'smooth'
+});
+}
+});
+});
+// Highlight active navigation link based on scroll position
+function updateActiveNavLink() {
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('.nav-link');
+let currentSection = '';
+sections.forEach(section => {
+const sectionTop = section.offsetTop - 100;
+const sectionHeight = section.offsetHeight;
+if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+currentSection = section.getAttribute('id');
+}
+});
+navLinks.forEach(link => {
+link.classList.remove('active');
+if (link.getAttribute('href') === `#${currentSection}`) {
+link.classList.add('active');
+}
+});
+}
+window.addEventListener('scroll', updateActiveNavLink);
+updateActiveNavLink();
+});
+</script>
+<script id="background-music-script">
+document.addEventListener('DOMContentLoaded', function() {
+    const bgMusic = document.getElementById('bgMusic');
+    const toggleButton = document.getElementById('toggleMusic');
+    let isPlaying = false;
+
+    bgMusic.volume = 0.2;
+
+    toggleButton.addEventListener('click', function() {
+        if (isPlaying) {
+            bgMusic.pause();
+            toggleButton.innerHTML = '<i class="ri-volume-mute-fill ri-lg"></i>';
+        } else {
+            bgMusic.play().catch(function(error) {
+                console.log("Audio play failed:", error);
+            });
+            toggleButton.innerHTML = '<i class="ri-volume-up-fill ri-lg"></i>';
+        }
+        isPlaying = !isPlaying;
+    });
+});
+</script>
+<script>
+    !function (t, e) { var o, n, p, r; e.__SV || (window.posthog = e, e._i = [], e.init = function (i, s, a) { function g(t, e) { var o = e.split("."); 2 == o.length && (t = t[o[0]], e = o[1]), t[e] = function () { t.push([e].concat(Array.prototype.slice.call(arguments, 0))) } } (p = t.createElement("script")).type = "text/javascript", p.crossOrigin = "anonymous", p.async = !0, p.src = s.api_host.replace(".i.posthog.com", "-assets.i.posthog.com") + "/static/array.js", (r = t.getElementsByTagName("script")[0]).parentNode.insertBefore(p, r); var u = e; for (void 0 !== a ? u = e[a] = [] : a = "posthog", u.people = u.people || [], u.toString = function (t) { var e = "posthog"; return "posthog" !== a && (e += "." + a), t || (e += " (stub)"), e }, u.people.toString = function () { return u.toString(1) + ".people (stub)" }, o = "init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagPayload isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "), n = 0; n < o.length; n++)g(u, o[n]); e._i.push([i, s, a]) }, e.__SV = 1) }(document, window.posthog || []);
+    posthog.init('phc_t9tkQZJiyi2ps9zUYm8TDsL6qXo4YmZx0Ot5rBlAlEd', {
+        api_host: 'https://us.i.posthog.com',
+        autocapture: false,
+        capture_pageview: false,
+        capture_pageleave: false,
+        capture_performance: {
+            web_vitals: false,
+        },
+        rageclick: false,
+    })
+    window.shareKey = 'jN-xpeS3IsMSWBx58kSNpg';
+    window.host = 'readdy.ai';
+</script>
+<script src="https://static.readdy.ai/static/share.js"></script>
+<div id="watermark" class="group" style="position: fixed; bottom: 48px; right: 46px; width: 184px; height: 39px; background-color: rgb(240, 240, 240); border-style: solid; border-width: 3px; border-radius: 12px; border-image-slice: 3; border-image-width: 3px; border-image-outset: 0; border-color: rgb(229, 231, 235); display: flex; align-items: center; justify-content: center; cursor: pointer;"><div class="designed-by" style="color: rgb(93, 93, 93); font-family: &quot;Secular One&quot;; font-size: 12px; line-height: 20px; font-weight: 400; padding-left: 12px;">Designed by</div><img src="https://public.readdy.ai/gen_page/watermark.png" style="width: 86px; margin-left: 0px;"></div></body></html>
